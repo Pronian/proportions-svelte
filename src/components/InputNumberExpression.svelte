@@ -21,7 +21,7 @@
 
 	function onBlur() {
 		expressionValue = value;
-		value = computedValue;
+		value = computedValue || '';
 		lostFocus = true;
 	}
 
