@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-  import Counter from './components/Counter.svelte';
-  import InputNumberExpression from './components/InputNumberExpression.svelte';
+  import Proportions from "./components/Proportions.svelte";
   import { generateAlphaColors } from './util/colors';
+	import { onMount } from "svelte";
 
   onMount(() => {
     generateAlphaColors(['--bg-color', '--text-color', '--primary-color', '--secondary-color']);
@@ -10,8 +9,7 @@
 </script>
 
 <main>
-  <InputNumberExpression label="Enter value for A"/>
-  <Counter />
+  <Proportions/>
 </main>
 
 <style>
