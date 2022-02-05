@@ -1,13 +1,18 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
+	import { roundIfNeeded } from "../util/number";
 	import { evaluateNumberExpression } from "../util/numberExpression";
 	export let label: string;
-	export let value: string = '';
+	export let initialValue: string = '';
 	export let roundingDigits: number = 3;
 
+	let value: string = initialValue;
 	let computedValue: string | undefined;
 	let isInvalid: boolean = false;
 	let lostFocus: boolean = false;
 	let expressionValue: string = '';
+
+	const dispatch = createEventDispatcher();
 
 	function onFocus() {
 		value = expressionValue;
@@ -23,7 +28,8 @@
 	$: {
 		let result = evaluateNumberExpression(value);
 		if (result !== undefined) {
-			computedValue = result.toFixed(roundingDigits);
+			computedValue = roundIfNeeded(result, roundingDigits).toString();
+			dispatch('compute', computedValue);
 			isInvalid = false;
 		} else {
 			isInvalid = true;
