@@ -13,4 +13,5 @@ export function roundIfNeeded(value: number, maxPrecision: number): number {
   if (decimalsCount(value) > maxPrecision) {
     return Number(value.toFixed(maxPrecision));
   }
+  return value;
 }
