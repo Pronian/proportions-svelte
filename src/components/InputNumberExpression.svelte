@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
+	import { slide } from "svelte/transition";
 	import { roundIfNeeded } from "../util/number";
 	import { evaluateNumberExpression } from "../util/numberExpression";
 	export let label: string;
@@ -16,15 +17,15 @@
 
 	function onFocus() {
 		if (!isInvalid) {
-		value = expressionValue;
+			value = expressionValue;
 		}
 		lostFocus = false;
 	}
 
 	function onBlur() {
 		if (!isInvalid) {
-		expressionValue = value;
-		value = computedValue || '';
+			expressionValue = value;
+			value = computedValue || '';
 		}
 		lostFocus = true;
 	}
@@ -48,20 +49,25 @@
 		on:blur={onBlur}
 	>
 	{#if lostFocus && isInvalid}
-		<div class="invalid-feedback">Invalid value</div>
+		<div class="invalid-feedback" transition:slide>Invalid value</div>
 	{/if}
 </label>
 
 <style>
 	label {
 		display: block;
+		position: relative;
+		min-width: 10rem;
 	}
-
+	
 	input {
 		background-color: var(--primary-color-a1);
 		color: var(--text-color);
-		padding: 0.5rem;
-		border-radius: 0.5rem;
+		text-align: center;
+		width: 100%;
+		padding: 0.8rem;
+		margin-bottom: 2rem;
+		border-radius: 0.8rem;
 		border: 2px solid var(--primary-color);
 	}
 
@@ -76,6 +82,9 @@
 	}
 
 	.invalid-feedback {
+		position: absolute;
+		width: 100%;
+		bottom: 0;
 		color: var(--secondary-color);
 		font-size: small;
 	}

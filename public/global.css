@@ -17,11 +17,19 @@ https://coolors.co/151519-4ea5d9-ea8c55-63a375-f4f4f9
     --secondary-font: 'Roboto Condensed', Roboto, sans-serif;
 }
 
+:root {
+    font-size: 62.5%;
+}
+
 body {
-    box-sizing: border-box;
     background-color: var(--bg-color);
     color: var(--text-color);
+    font-size: 16px;
     font-family: var(--primary-font);
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .flex-cc {
