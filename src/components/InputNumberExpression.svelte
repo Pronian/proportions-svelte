@@ -15,13 +15,17 @@
 	const dispatch = createEventDispatcher();
 
 	function onFocus() {
+		if (!isInvalid) {
 		value = expressionValue;
+		}
 		lostFocus = false;
 	}
 
 	function onBlur() {
+		if (!isInvalid) {
 		expressionValue = value;
 		value = computedValue || '';
+		}
 		lostFocus = true;
 	}
 
