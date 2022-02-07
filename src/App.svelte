@@ -8,7 +8,7 @@
   });
 </script>
 
-<main>
+<main class="flex-cc">
   <Proportions/>
 </main>
 
