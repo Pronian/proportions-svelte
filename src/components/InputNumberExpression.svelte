@@ -4,14 +4,14 @@
 	import { roundIfNeeded } from "../util/number";
 	import { evaluateNumberExpression } from "../util/numberExpression";
 	export let label: string;
-	export let initialValue: string = '';
+	export let initialExpression: string = '';
 	export let roundingDigits: number = 3;
 
-	let value: string = initialValue;
+	let value: string = evaluateNumberExpression(initialExpression)?.toString() || '';
 	let computedValue: string | undefined;
 	let isInvalid: boolean = false;
 	let lostFocus: boolean = false;
-	let expressionValue: string = '';
+	let expressionValue: string = initialExpression;
 
 	const dispatch = createEventDispatcher();
 
