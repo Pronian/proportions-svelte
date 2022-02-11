@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { debounce } from "src/util/metaFunctions";
+import { debounce } from "../util/metaFunctions";
 
 /**
  * A writable Svelte store that saves its value to localStorage in the background.
