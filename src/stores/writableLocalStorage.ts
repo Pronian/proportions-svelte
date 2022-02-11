@@ -11,16 +11,18 @@ import { debounce } from "../util/metaFunctions";
  * @returns a writable Svelte store
  */
 export function createWritableLS<T>(key: string, defaultValue: T, debounceMs: number = 0) {
-	const { set: storeSet, subscribe } = writable(defaultValue);
 	let storeValue = defaultValue;
-
+	
 	if (localStorage.hasOwnProperty(key)) {
 		try {
 			storeValue = JSON.parse(localStorage.getItem(key) as string);
 		} catch (error) {
+			console.warn(`Error parsing localStorage value for key ${key}:`, error);
 			storeValue = defaultValue;
 		}
 	}
+
+	const { set: storeSet, subscribe } = writable(storeValue);
 
 	let setLS: (value: T) => void;
 	if (debounceMs > 0) {
