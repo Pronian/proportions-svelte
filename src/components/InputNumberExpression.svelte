@@ -34,8 +34,9 @@
 		let result = evaluateNumberExpression(value);
 		if (result !== undefined) {
 			computedValue = roundIfNeeded(result, roundingDigits).toString();
-			dispatch('compute', computedValue);
 			isInvalid = false;
+			const currentExpression = lostFocus ? expressionValue : value;
+			dispatch('compute', { computed: computedValue, expression: currentExpression});
 		} else {
 			isInvalid = true;
 		}
