@@ -1,12 +1,28 @@
 <script lang="ts">
+	import type { ProportionModel } from "../types/proportion";
 	import InputNumberExpression from "./InputNumberExpression.svelte";
 	import { arrowNarrowRight } from "../assets/htmlSVGs";
 	import { roundIfNeeded } from "../util/number";
+	import { createWritableLS } from "../stores/writableLocalStorage";
 	const roundingDigits = 3;
 
-	let a = 1;
-	let b = 2;
-	let c = 3;
+	const initialStore: ProportionModel = {
+		a: {
+			computed: 1,
+			expression: '',
+		},
+		b: {
+			computed: 1,
+			expression: '',
+		},
+		c: {
+			computed: 1,
+			expression: '',
+		},
+		cArr: [],
+	}
+
+	const store = createWritableLS('proportionModel', initialStore, 3000);
 </script>
 
 
@@ -14,20 +30,23 @@
 	<h2 class="aria-only">Enter values for A, B, which will determine the ratio. And entering value C will use the ratio to generate the new proportion</h2>
 	<div class="flex-cc prop-row">
 		<div class="prop-val">
-			<InputNumberExpression label="value A" initialValue={a.toString()} on:compute={(event) => a = event.detail} {roundingDigits} />
+			<InputNumberExpression label="value A" initialExpression={$store.a.expression} {roundingDigits}
+				on:compute={(event) => $store.a = event.detail} />
 		</div>
 		<div class="arrow" aria-label="relates to">{@html arrowNarrowRight}</div>
 		<div class="prop-val">
-			<InputNumberExpression label="value B" initialValue={b.toString()} on:compute={(event) => b = event.detail} {roundingDigits} />
+			<InputNumberExpression label="value B" initialExpression={$store.b.expression} {roundingDigits}
+				on:compute={(event) => $store.b = event.detail} />
 		</div>
 	</div>
 	<div class="flex-cc prop-row">
 		<div class="prop-val">
-			<InputNumberExpression label="as value C" initialValue={c.toString()} on:compute={(event) => c = event.detail} {roundingDigits}/>
+			<InputNumberExpression label="as value C" initialExpression={$store.c.expression} {roundingDigits}
+				on:compute={(event) => $store.c = event.detail} />
 		</div>
 		<div class="arrow" aria-label="to">{@html arrowNarrowRight}</div>
 		<div class="flex-cc prop-val">
-			<div class="prop-res">{roundIfNeeded(c*b/a, roundingDigits)}</div>
+			<div class="prop-res">{roundIfNeeded($store.c.computed*$store.b.computed/$store.a.computed, roundingDigits)}</div>
 		</div>
 	</div>
 </section>
