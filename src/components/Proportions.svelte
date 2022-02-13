@@ -23,6 +23,8 @@
 	}
 
 	const store = createWritableLS('proportionModel', initialStore, 3000);
+
+	$: result = roundIfNeeded($store.c.computed*$store.b.computed/$store.a.computed, roundingDigits);
 </script>
 
 
@@ -46,7 +48,7 @@
 		</div>
 		<div class="arrow" aria-label="to">{@html arrowNarrowRight}</div>
 		<div class="flex-cc prop-val">
-			<div class="prop-res">{roundIfNeeded($store.c.computed*$store.b.computed/$store.a.computed, roundingDigits)}</div>
+			<div class="prop-res">{result}</div>
 		</div>
 	</div>
 </section>
