@@ -1,5 +1,6 @@
 <script lang="ts">
   import Proportions from "./components/Proportions.svelte";
+  import Header from "./components/Header.svelte";
   import { generateAlphaColors } from './util/colors';
 	import { onMount } from "svelte";
 
@@ -8,6 +9,7 @@
   });
 </script>
 
+<Header/>
 <main class="flex-cc">
   <Proportions/>
 </main>

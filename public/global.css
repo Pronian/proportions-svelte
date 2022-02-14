@@ -13,6 +13,7 @@ https://coolors.co/151519-4ea5d9-ea8c55-63a375-f4f4f9
     --primary-color: #4ea6da;
     --secondary-color: hsl(22, 78%, 63%);
     --text-color: hsl(240, 29%, 93%);
+    --shadow-color: #00000066;
     --primary-font: Roboto, sans-serif;
     --secondary-font: 'Roboto Condensed', Roboto, sans-serif;
 }
