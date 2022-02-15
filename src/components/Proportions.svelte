@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { ProportionModel } from "../types/proportion";
 	import InputNumberExpression from "./InputNumberExpression.svelte";
-	import { arrowNarrowRight } from "../assets/htmlSVGs";
+	import SvgBuilder from "./SvgBuilder.svelte";
+	import { arrowNarrowRight } from "../assets/svgObjects";
 	import { roundIfNeeded } from "../util/number";
 	import { createWritableLS } from "../stores/writableLocalStorage";
 	const roundingDigits = 3;
@@ -35,7 +36,7 @@
 			<InputNumberExpression label="value A" initialExpression={$store.a.expression} {roundingDigits}
 				on:compute={(event) => $store.a = event.detail} />
 		</div>
-		<div class="arrow" aria-label="relates to">{@html arrowNarrowRight}</div>
+		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to"/>
 		<div class="prop-val">
 			<InputNumberExpression label="value B" initialExpression={$store.b.expression} {roundingDigits}
 				on:compute={(event) => $store.b = event.detail} />
@@ -46,7 +47,7 @@
 			<InputNumberExpression label="as value C" initialExpression={$store.c.expression} {roundingDigits}
 				on:compute={(event) => $store.c = event.detail} />
 		</div>
-		<div class="arrow" aria-label="to">{@html arrowNarrowRight}</div>
+		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to"/>
 		<div class="flex-cc prop-val">
 			<div class="prop-res">{result}</div>
 		</div>
@@ -75,7 +76,7 @@
 		flex: 3;
 	}
 
-	.arrow {
+	.prop-row :global(.arrow) {
 		color: var(--primary-color);
 		width: 3.5rem;
 		height: 3.5rem;
