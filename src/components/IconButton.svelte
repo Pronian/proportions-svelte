@@ -9,17 +9,18 @@
 
 <style>
     button {
+        display: inline-block;
         aspect-ratio: 1/1;
         background-color: transparent;
         color: var(--text-color);
-        border: 0.2rem solid var(--secondary-color-a5);
+        outline: none;
+        border: none;
         border-radius: 0.8rem;
         transition: transform, border-color 0.3s ease-in-out;
     }
 
     button:hover, button:focus {
-        outline: none;
-        border-color: var(--secondary-color);
+        background-color: var(--secondary-color-a2);
     }
 
     button:active {
