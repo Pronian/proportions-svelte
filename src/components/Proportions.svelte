@@ -62,6 +62,7 @@
 	.prop-row {
 		margin-bottom: 1rem;
 		align-items: flex-start;
+		gap: 1rem;
 	}
 
 	.prop-res {
@@ -80,6 +81,5 @@
 		color: var(--primary-color);
 		width: 3.5rem;
 		height: 3.5rem;
-		margin: 0 1rem;
 	}
 </style>
