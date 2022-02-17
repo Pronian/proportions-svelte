@@ -56,11 +56,13 @@
 
 <style>
 	.prop-main {
-		max-width: 60rem;
+		max-width: 64rem;
 		width: 100%;
+		display: grid;
+		grid-template: auto / 1fr 3.5rem;
+		gap: 2rem;
 	}
 	.prop-row {
-		margin-bottom: 1rem;
 		align-items: flex-start;
 		gap: 1rem;
 	}
