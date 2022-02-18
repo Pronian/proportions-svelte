@@ -6,6 +6,8 @@
 	import { arrowNarrowRight, refresh } from "../assets/svgObjects";
 	import { roundIfNeeded } from "../util/number";
 	import { createWritableLS } from "../stores/writableLocalStorage";
+	import { createSwapAnimation } from "../actions/swapRotateAnimation";
+	const swapAnim = createSwapAnimation({ duration: 5000, verticalOriginOffset: -10 });
 	const roundingDigits = 3;
 
 	const initialStore: ProportionModel = {
@@ -33,17 +35,17 @@
 <section class="prop-main">
 	<h2 class="aria-only">Enter values for A, B, which will determine the ratio. And entering value C will use the ratio to generate the new proportion</h2>
 	<div class="flex-cc prop-row">
-		<div class="prop-val">
+		<div class="prop-val" use:swapAnim.actionRotateRight>
 			<InputNumberExpression label="value A" initialExpression={$store.a.expression} {roundingDigits}
 				on:compute={(event) => $store.a = event.detail} />
 		</div>
 		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to"/>
-		<div class="prop-val">
+		<div class="prop-val" use:swapAnim.actionRotateLeft>
 			<InputNumberExpression label="value B" initialExpression={$store.b.expression} {roundingDigits}
 				on:compute={(event) => $store.b = event.detail} />
 		</div>
 	</div>
-	<IconButton>
+	<IconButton on:click={() => swapAnim.triggerAnimation()}>
 		<SvgBuilder svgObj={refresh} role="img" title="Invert ratio" />
 	</IconButton>
 	<div class="flex-cc prop-row">
