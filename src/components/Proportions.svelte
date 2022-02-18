@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { ProportionModel } from "../types/proportion";
 	import InputNumberExpression from "./InputNumberExpression.svelte";
+	import IconButton from "./IconButton.svelte";
 	import SvgBuilder from "./SvgBuilder.svelte";
-	import { arrowNarrowRight } from "../assets/svgObjects";
+	import { arrowNarrowRight, refresh } from "../assets/svgObjects";
 	import { roundIfNeeded } from "../util/number";
 	import { createWritableLS } from "../stores/writableLocalStorage";
 	const roundingDigits = 3;
@@ -42,6 +43,9 @@
 				on:compute={(event) => $store.b = event.detail} />
 		</div>
 	</div>
+	<IconButton>
+		<SvgBuilder svgObj={refresh} role="img" title="Invert ratio" />
+	</IconButton>
 	<div class="flex-cc prop-row">
 		<div class="prop-val">
 			<InputNumberExpression label="as value C" initialExpression={$store.c.expression} {roundingDigits}
