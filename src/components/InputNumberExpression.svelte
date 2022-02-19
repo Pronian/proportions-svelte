@@ -10,8 +10,7 @@
 	let value: string = evaluateNumberExpression(expression)?.toString() || '';
 	let computedValue: string | undefined;
 	let isInvalid: boolean = false;
-	let lostFocus: boolean = false;
-	let expressionValue: string = initialExpression;
+	let lostFocus: boolean = true;
 
 	const dispatch = createEventDispatcher();
 
