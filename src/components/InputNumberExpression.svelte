@@ -4,10 +4,10 @@
 	import { roundIfNeeded } from "../util/number";
 	import { evaluateNumberExpression } from "../util/numberExpression";
 	export let label: string;
-	export let initialExpression: string = '';
+	export let expression: string = '';
 	export let roundingDigits: number = 3;
 
-	let value: string = evaluateNumberExpression(initialExpression)?.toString() || '';
+	let value: string = evaluateNumberExpression(expression)?.toString() || '';
 	let computedValue: string | undefined;
 	let isInvalid: boolean = false;
 	let lostFocus: boolean = false;
@@ -17,30 +17,38 @@
 
 	function onFocus() {
 		if (!isInvalid) {
-			value = expressionValue;
+			value = expression;
 		}
 		lostFocus = false;
 	}
 
 	function onBlur() {
 		if (!isInvalid) {
-			expressionValue = value;
+			expression = value;
 			value = computedValue || '';
 		}
 		lostFocus = true;
 	}
 
-	$: {
-		let result = evaluateNumberExpression(value);
+	function compute(expression: string, roundingDigits: number) {
+		let result = evaluateNumberExpression(expression);
 		if (result !== undefined) {
 			computedValue = roundIfNeeded(result, roundingDigits).toString();
 			isInvalid = false;
-			const currentExpression = lostFocus ? expressionValue : value;
-			dispatch('compute', { computed: computedValue, expression: currentExpression});
+			if (lostFocus) value = computedValue;
+			dispatch('compute', { computed: computedValue, expression: expression});
 		} else {
 			isInvalid = true;
 		}
 	}
+
+	function getCurrentExpression(expression: string, value: string) {
+		return lostFocus ? expression : value;
+	}
+
+	$: currentExpression = getCurrentExpression(expression, value);
+
+	$: compute(currentExpression, roundingDigits);
 </script>
 
 <label>
