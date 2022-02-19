@@ -30,6 +30,13 @@
 	}
 
 	function compute(expression: string, roundingDigits: number) {
+		if (expression.trim() === '') {
+			// Do not consider empty expressions as invalid
+			// This happens when the component is initialized without an expression
+			isInvalid = false;
+			return;
+		}
+
 		let result = evaluateNumberExpression(expression);
 		if (result !== undefined) {
 			computedValue = roundIfNeeded(result, roundingDigits).toString();
