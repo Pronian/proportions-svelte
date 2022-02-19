@@ -7,7 +7,8 @@
 	import { roundIfNeeded } from "../util/number";
 	import { createWritableLS } from "../stores/writableLocalStorage";
 	import { createSwapAnimation } from "../actions/swapRotateAnimation";
-	const swapAnim = createSwapAnimation({ duration: 5000, verticalOriginOffset: -10 });
+
+	const swapAnim = createSwapAnimation({ duration: 500, verticalOriginOffset: -10 });
 	const roundingDigits = 3;
 
 	const initialStore: ProportionModel = {
