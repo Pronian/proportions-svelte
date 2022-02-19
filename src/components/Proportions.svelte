@@ -76,8 +76,9 @@
 		width: 100%;
 		display: grid;
 		grid-template: auto / 1fr 3.5rem;
-		gap: 2rem;
+		gap: 2rem 1rem;
 	}
+
 	.prop-row {
 		align-items: flex-start;
 		gap: 1rem;
