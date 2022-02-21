@@ -53,6 +53,10 @@ export function createSwapAnimation(options?: {
             let xCenterParentElement = leftElement.parentElement.offsetWidth / 2;
             let xCenterAccordingRightElement = rightElement.offsetWidth - xCenterParentElement
 
+            let hasXScrollbar = document.documentElement.scrollWidth > document.documentElement.clientWidth;
+            let hasYScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+            document.documentElement.style.overflowX = hasXScrollbar ? '' : 'hidden';
+            document.documentElement.style.overflowY = hasYScrollbar ? '' : 'hidden';
             updateStyles(leftElement, xCenterParentElement, 180);
             updateStyles(leftChildElement, 0, -180);
 
@@ -64,6 +68,8 @@ export function createSwapAnimation(options?: {
             timeout = setTimeout(() => {
                 clearStyles(leftElement, leftChildElement, rightElement, rightChildElement);
                 isAnimating = false;
+                document.documentElement.style.overflowX = '';
+                document.documentElement.style.overflowY = '';
                 onCompleteCallback();
             },duration);
         }
