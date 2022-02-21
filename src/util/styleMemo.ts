@@ -12,7 +12,7 @@ export function createStyleMemo() {
 	/**
 	 * Will set the style of the given node while saving the original style to a WeakMap.
 	 * @param element - The element to set the style on.
-	 * @param styleProp - The style property to set.
+	 * @param styleProp - The style property to set. Uses kebab-case.
 	 * @param styleValue - The value to set the style property to.
 	 */
 	function setStyle(element: HTMLElement, styleProp: string, styleValue: string) {
