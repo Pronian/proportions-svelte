@@ -32,17 +32,19 @@ export function createStyleMemo() {
 
 	/**
 	 * Will restore the style properties modified by `setStyle` to their original values.
-	 * @param element - the element to restore the style on.
+	 * @param elements - the elements to restore the style on.
 	 */
-	function restoreStyles(element: HTMLElement) {
-		const styleObj = map.get(element);
-		if (!styleObj) return;
-
-		for (const [styleProp, styleValue] of Object.entries(styleObj)) {
-			element.style.setProperty(styleProp, styleValue);
+	function restoreStyles(...elements: HTMLElement[]) {
+		for (const element of elements) {
+			const styleObj = map.get(element);
+			if (!styleObj) return;
+	
+			for (const [styleProp, styleValue] of Object.entries(styleObj)) {
+				element.style.setProperty(styleProp, styleValue);
+			}
+	
+			map.delete(element);
 		}
-
-		map.delete(element);
 	}
 
 	return {
