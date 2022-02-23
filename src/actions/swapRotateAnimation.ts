@@ -1,3 +1,5 @@
+import { createStyleMemo } from "../util/styleMemo";
+
 export function createSwapAnimation(options?: { 
     duration?: number,
     easingCSS?: string,
@@ -10,6 +12,7 @@ export function createSwapAnimation(options?: {
     } = options || {};
 
     const transitionString = `transform ${duration}ms ${easingCSS}`;
+    const { setStyle, restoreStyles } = createStyleMemo();
 
     let isAnimating = false;
     let timeout: ReturnType<typeof setTimeout>;
@@ -19,28 +22,25 @@ export function createSwapAnimation(options?: {
     let rightChildElement: HTMLElement;
     let verticalCenter: number;
 
-    function clearStyles(...nodes: HTMLElement[]) {
-        for (const node of nodes) {
-            node.style.transform = '';
-            node.style.transformOrigin = '';
-            node.style.transition = '';
-        }
+    function updateTransitionStyles(node: HTMLElement, transformOriginX: number = 0, rotationDeg: number = 0) {
+        setStyle(node, 'transform', `rotate(${rotationDeg}deg)`);
+        const transformOriginValue = transformOriginX !== 0 ? `${transformOriginX}px ${verticalCenter}px` : `center ${verticalCenter}px`;
+        setStyle(node, 'transform-origin', transformOriginValue);
+        setStyle(node, 'transition', transitionString);
     }
 
-    function updateStyles(node: HTMLElement, transformOriginX: number = 0, rotationDeg: number = 0) {
-        node.style.transform = `rotate(${rotationDeg}deg)`;
-        if (transformOriginX !== 0) {
-            node.style.transformOrigin = `${transformOriginX}px ${verticalCenter}px`;
-        } else {
-            node.style.transformOrigin = `center ${verticalCenter}px`;
-        }
-        node.style.transition = transitionString;
+    function hideDocumentOverflow() {
+        const docEl = document.documentElement;
+        const hasXScrollbar = docEl.scrollWidth > docEl.clientWidth;
+        const hasYScrollbar = docEl.scrollHeight > docEl.clientHeight;
+        setStyle(docEl, 'overflow-x', hasXScrollbar ? '' : 'hidden');
+        setStyle(docEl, 'overflow-y', hasYScrollbar ? '' : 'hidden');
     }
 
     function triggerAnimation(onCompleteCallback = () => {}) {
         if (isAnimating) {
             clearTimeout(timeout);
-            clearStyles(leftElement, leftChildElement, rightElement, rightChildElement);
+            restoreStyles(leftElement, leftChildElement, rightElement, rightChildElement);
             isAnimating = false;
         }
         
@@ -50,26 +50,26 @@ export function createSwapAnimation(options?: {
             && leftElement.parentElement instanceof HTMLElement
         ) {
             verticalCenter = leftElement.offsetHeight / 2 + verticalOriginOffset;
-            let xCenterParentElement = leftElement.parentElement.offsetWidth / 2;
-            let xCenterAccordingRightElement = rightElement.offsetWidth - xCenterParentElement
+            const xCenterParentElement = leftElement.parentElement.offsetWidth / 2;
+            const xCenterAccordingRightElement = rightElement.offsetWidth - xCenterParentElement
 
-            let hasXScrollbar = document.documentElement.scrollWidth > document.documentElement.clientWidth;
-            let hasYScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
-            document.documentElement.style.overflowX = hasXScrollbar ? '' : 'hidden';
-            document.documentElement.style.overflowY = hasYScrollbar ? '' : 'hidden';
-            updateStyles(leftElement, xCenterParentElement, 180);
-            updateStyles(leftChildElement, 0, -180);
+            hideDocumentOverflow();
 
-            updateStyles(rightElement, xCenterAccordingRightElement, 180);
-            updateStyles(rightChildElement, 0, -180);
+            updateTransitionStyles(leftElement, xCenterParentElement, 180);
+            updateTransitionStyles(leftChildElement, 0, -180);
+
+            updateTransitionStyles(rightElement, xCenterAccordingRightElement, 180);
+            updateTransitionStyles(rightChildElement, 0, -180);
 
             isAnimating = true;
 
             timeout = setTimeout(() => {
-                clearStyles(leftElement, leftChildElement, rightElement, rightChildElement);
+                restoreStyles(
+                    leftElement, leftChildElement,
+                    rightElement, rightChildElement,
+                    document.documentElement
+                );
                 isAnimating = false;
-                document.documentElement.style.overflowX = '';
-                document.documentElement.style.overflowY = '';
                 onCompleteCallback();
             },duration);
         }
