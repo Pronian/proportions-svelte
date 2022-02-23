@@ -59,7 +59,7 @@
 
 <label>
 	<span class="aria-only">{label}</span>
-	<input bind:value type="text" placeholder={label} inputmode="decimal" 
+	<input bind:value type="text" placeholder={label}
 		on:focus={onFocus}
 		on:blur={onBlur}
 	>
