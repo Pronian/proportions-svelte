@@ -16,5 +16,10 @@ module.exports = {
 		browser: true,
 		es2017: true,
 		node: true
+	},
+	rules: {
+		'no-empty-function': 'off',
+		'@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
+		'@typescript-eslint/no-inferrable-types': 'off'
 	}
 };

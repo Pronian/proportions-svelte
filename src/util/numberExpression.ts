@@ -2,8 +2,8 @@ export function evaluateNumberExpression(value: string): number | undefined {
 	let result: number | undefined = undefined;
 
 	try {
-		let fn = new Function(`return ${value};`);
-		let computedValue = fn();
+		const fn = new Function(`return ${value};`);
+		const computedValue = fn();
 		if (typeof computedValue === 'number' && Number.isFinite(computedValue)) {
 			result = computedValue;
 		} else {

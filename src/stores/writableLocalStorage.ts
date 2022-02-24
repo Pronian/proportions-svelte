@@ -13,7 +13,7 @@ import { debounce } from '../util/metaFunctions';
 export function createWritableLS<T>(key: string, defaultValue: T, debounceMs: number = 0) {
 	let storeValue = defaultValue;
 
-	if (localStorage.hasOwnProperty(key)) {
+	if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
 		try {
 			storeValue = JSON.parse(localStorage.getItem(key) as string);
 		} catch (error) {
