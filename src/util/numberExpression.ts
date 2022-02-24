@@ -3,7 +3,7 @@ export function evaluateNumberExpression(value: string): number | undefined {
 
 	try {
 		const fn = new Function(`return ${value};`);
-		const computedValue = fn();
+		const computedValue: unknown = fn();
 		if (typeof computedValue === 'number' && Number.isFinite(computedValue)) {
 			result = computedValue;
 		} else {
