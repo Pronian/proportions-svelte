@@ -1,23 +1,23 @@
 <script lang="ts">
-  import Proportions from "./components/Proportions.svelte";
-  import Header from "./components/Header.svelte";
-  import { generateAlphaColors } from './util/colors';
-	import { onMount } from "svelte";
+	import Proportions from './components/Proportions.svelte';
+	import Header from './components/Header.svelte';
+	import { generateAlphaColors } from './util/colors';
+	import { onMount } from 'svelte';
 
-  onMount(() => {
-    generateAlphaColors(['--bg-color', '--text-color', '--primary-color', '--secondary-color']);
-  });
+	onMount(() => {
+		generateAlphaColors(['--bg-color', '--text-color', '--primary-color', '--secondary-color']);
+	});
 </script>
 
-<Header/>
+<Header />
 <main class="flex-cc">
-  <Proportions/>
+	<Proportions />
 </main>
 
 <style>
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
+	main {
+		text-align: center;
+		padding: 1em;
+		margin: 0 auto;
+	}
 </style>

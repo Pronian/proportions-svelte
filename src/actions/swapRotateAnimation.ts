@@ -1,95 +1,102 @@
-import { createStyleMemo } from "../util/styleMemo";
+import { createStyleMemo } from '../util/styleMemo';
 
-export function createSwapAnimation(options?: { 
-    duration?: number,
-    easingCSS?: string,
-    verticalOriginOffset?: number
+export function createSwapAnimation(options?: {
+	duration?: number;
+	easingCSS?: string;
+	verticalOriginOffset?: number;
 }) {
-    const { 
-        duration = 500,
-        easingCSS = 'ease-in-out',
-        verticalOriginOffset = 0
-    } = options || {};
+	const { duration = 500, easingCSS = 'ease-in-out', verticalOriginOffset = 0 } = options || {};
 
-    const transitionString = `transform ${duration}ms ${easingCSS}`;
-    const { setStyle, restoreStyles } = createStyleMemo();
+	const transitionString = `transform ${duration}ms ${easingCSS}`;
+	const { setStyle, restoreStyles } = createStyleMemo();
 
-    let isAnimating = false;
-    let timeout: ReturnType<typeof setTimeout>;
-    let leftElement: HTMLElement;
-    let leftChildElement: HTMLElement;
-    let rightElement: HTMLElement;
-    let rightChildElement: HTMLElement;
-    let verticalCenter: number;
+	let isAnimating = false;
+	let timeout: ReturnType<typeof setTimeout>;
+	let leftElement: HTMLElement;
+	let leftChildElement: HTMLElement;
+	let rightElement: HTMLElement;
+	let rightChildElement: HTMLElement;
+	let verticalCenter: number;
 
-    function updateTransitionStyles(node: HTMLElement, transformOriginX: number = 0, rotationDeg: number = 0) {
-        setStyle(node, 'transform', `rotate(${rotationDeg}deg)`);
-        const transformOriginValue = transformOriginX !== 0 ? `${transformOriginX}px ${verticalCenter}px` : `center ${verticalCenter}px`;
-        setStyle(node, 'transform-origin', transformOriginValue);
-        setStyle(node, 'transition', transitionString);
-    }
+	function updateTransitionStyles(
+		node: HTMLElement,
+		transformOriginX: number = 0,
+		rotationDeg: number = 0
+	) {
+		setStyle(node, 'transform', `rotate(${rotationDeg}deg)`);
+		const transformOriginValue =
+			transformOriginX !== 0
+				? `${transformOriginX}px ${verticalCenter}px`
+				: `center ${verticalCenter}px`;
+		setStyle(node, 'transform-origin', transformOriginValue);
+		setStyle(node, 'transition', transitionString);
+	}
 
-    function hideDocumentOverflow() {
-        const docEl = document.documentElement;
-        const hasXScrollbar = docEl.scrollWidth > docEl.clientWidth;
-        const hasYScrollbar = docEl.scrollHeight > docEl.clientHeight;
-        setStyle(docEl, 'overflow-x', hasXScrollbar ? '' : 'hidden');
-        setStyle(docEl, 'overflow-y', hasYScrollbar ? '' : 'hidden');
-    }
+	function hideDocumentOverflow() {
+		const docEl = document.documentElement;
+		const hasXScrollbar = docEl.scrollWidth > docEl.clientWidth;
+		const hasYScrollbar = docEl.scrollHeight > docEl.clientHeight;
+		setStyle(docEl, 'overflow-x', hasXScrollbar ? '' : 'hidden');
+		setStyle(docEl, 'overflow-y', hasYScrollbar ? '' : 'hidden');
+	}
 
-    function triggerAnimation(onCompleteCallback = () => {}) {
-        if (isAnimating) {
-            clearTimeout(timeout);
-            restoreStyles(leftElement, leftChildElement, rightElement, rightChildElement);
-            isAnimating = false;
-        }
-        
-        if (
-            leftElement && leftChildElement
-            && rightElement && rightChildElement
-            && leftElement.parentElement instanceof HTMLElement
-        ) {
-            verticalCenter = leftElement.offsetHeight / 2 + verticalOriginOffset;
-            const xCenterParentElement = leftElement.parentElement.offsetWidth / 2;
-            const xCenterAccordingRightElement = rightElement.offsetWidth - xCenterParentElement
+	function triggerAnimation(onCompleteCallback = () => {}) {
+		if (isAnimating) {
+			clearTimeout(timeout);
+			restoreStyles(leftElement, leftChildElement, rightElement, rightChildElement);
+			isAnimating = false;
+		}
 
-            hideDocumentOverflow();
+		if (
+			leftElement &&
+			leftChildElement &&
+			rightElement &&
+			rightChildElement &&
+			leftElement.parentElement instanceof HTMLElement
+		) {
+			verticalCenter = leftElement.offsetHeight / 2 + verticalOriginOffset;
+			const xCenterParentElement = leftElement.parentElement.offsetWidth / 2;
+			const xCenterAccordingRightElement = rightElement.offsetWidth - xCenterParentElement;
 
-            updateTransitionStyles(leftElement, xCenterParentElement, 180);
-            updateTransitionStyles(leftChildElement, 0, -180);
+			hideDocumentOverflow();
 
-            updateTransitionStyles(rightElement, xCenterAccordingRightElement, 180);
-            updateTransitionStyles(rightChildElement, 0, -180);
+			updateTransitionStyles(leftElement, xCenterParentElement, 180);
+			updateTransitionStyles(leftChildElement, 0, -180);
 
-            isAnimating = true;
+			updateTransitionStyles(rightElement, xCenterAccordingRightElement, 180);
+			updateTransitionStyles(rightChildElement, 0, -180);
 
-            timeout = setTimeout(() => {
-                restoreStyles(
-                    leftElement, leftChildElement,
-                    rightElement, rightChildElement,
-                    document.documentElement
-                );
-                isAnimating = false;
-                onCompleteCallback();
-            },duration);
-        }
-    }
+			isAnimating = true;
 
-    function actionRotateRight(node: HTMLElement) {
-        if (node.firstElementChild instanceof HTMLElement === false) return;
-        leftElement = node;
-        leftChildElement = node.firstElementChild as HTMLElement;
-    }
+			timeout = setTimeout(() => {
+				restoreStyles(
+					leftElement,
+					leftChildElement,
+					rightElement,
+					rightChildElement,
+					document.documentElement
+				);
+				isAnimating = false;
+				onCompleteCallback();
+			}, duration);
+		}
+	}
 
-    function actionRotateLeft(node: HTMLElement) {
-        if (node.firstElementChild instanceof HTMLElement === false) return;
-        rightElement = node;
-        rightChildElement = node.firstElementChild as HTMLElement;
-    }
+	function actionRotateRight(node: HTMLElement) {
+		if (node.firstElementChild instanceof HTMLElement === false) return;
+		leftElement = node;
+		leftChildElement = node.firstElementChild as HTMLElement;
+	}
 
-    return {
-        triggerAnimation,
-        actionRotateRight,
-        actionRotateLeft
-    }
+	function actionRotateLeft(node: HTMLElement) {
+		if (node.firstElementChild instanceof HTMLElement === false) return;
+		rightElement = node;
+		rightChildElement = node.firstElementChild as HTMLElement;
+	}
+
+	return {
+		triggerAnimation,
+		actionRotateRight,
+		actionRotateLeft
+	};
 }

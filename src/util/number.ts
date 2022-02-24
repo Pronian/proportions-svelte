@@ -4,14 +4,14 @@
  * @returns - the count of decimal places in the number
  */
 export function decimalsCount(value: number): number {
-  if (!isFinite(value)) return 0;
-  let e = 1;
-  let decimals = 0;
-  while (Math.round(value * e) / e !== value) {
-    e *= 10;
-    decimals++;
-  }
-  return decimals;
+	if (!isFinite(value)) return 0;
+	let e = 1;
+	let decimals = 0;
+	while (Math.round(value * e) / e !== value) {
+		e *= 10;
+		decimals++;
+	}
+	return decimals;
 }
 
 /**
@@ -22,8 +22,8 @@ export function decimalsCount(value: number): number {
  * @returns - the rounded number
  */
 export function roundIfNeeded(value: number, maxPrecision: number): number {
-  if (decimalsCount(value) > maxPrecision) {
-    return Number(value.toFixed(maxPrecision));
-  }
-  return value;
+	if (decimalsCount(value) > maxPrecision) {
+		return Number(value.toFixed(maxPrecision));
+	}
+	return value;
 }

@@ -1,5 +1,5 @@
-import { writable } from "svelte/store";
-import { debounce } from "../util/metaFunctions";
+import { writable } from 'svelte/store';
+import { debounce } from '../util/metaFunctions';
 
 /**
  * A writable Svelte store that saves its value to localStorage in the background.
@@ -12,7 +12,7 @@ import { debounce } from "../util/metaFunctions";
  */
 export function createWritableLS<T>(key: string, defaultValue: T, debounceMs: number = 0) {
 	let storeValue = defaultValue;
-	
+
 	if (localStorage.hasOwnProperty(key)) {
 		try {
 			storeValue = JSON.parse(localStorage.getItem(key) as string);
@@ -30,7 +30,9 @@ export function createWritableLS<T>(key: string, defaultValue: T, debounceMs: nu
 			localStorage.setItem(key, JSON.stringify(value));
 		}, debounceMs);
 	} else {
-		setLS = (value: T) => { localStorage.setItem(key, JSON.stringify(value)); }
+		setLS = (value: T) => {
+			localStorage.setItem(key, JSON.stringify(value));
+		};
 	}
 
 	function wrappedSet(value: T) {

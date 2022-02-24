@@ -23,7 +23,7 @@ export function createStyleMemo() {
 		if (styleObj && styleObj[styleProp] === undefined) {
 			// Once a value is set, it should not be overwritten
 			styleObj[styleProp] = originalValue;
-		} else if(!styleObj) {
+		} else if (!styleObj) {
 			map.set(element, { [styleProp]: originalValue });
 		}
 
@@ -38,17 +38,17 @@ export function createStyleMemo() {
 		for (const element of elements) {
 			const styleObj = map.get(element);
 			if (!styleObj) return;
-	
+
 			for (const [styleProp, styleValue] of Object.entries(styleObj)) {
 				element.style.setProperty(styleProp, styleValue);
 			}
-	
+
 			map.delete(element);
 		}
 	}
 
 	return {
 		setStyle,
-		restoreStyles,
-	}
+		restoreStyles
+	};
 }

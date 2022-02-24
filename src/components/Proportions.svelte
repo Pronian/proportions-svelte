@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { ProportionModel } from "../types/proportion";
-	import InputNumberExpression from "./InputNumberExpression.svelte";
-	import IconButton from "./IconButton.svelte";
-	import SvgBuilder from "./SvgBuilder.svelte";
-	import { arrowNarrowRight, refresh } from "../assets/svgObjects";
-	import { roundIfNeeded } from "../util/number";
-	import { createWritableLS } from "../stores/writableLocalStorage";
-	import { createSwapAnimation } from "../actions/swapRotateAnimation";
+	import type { ProportionModel } from '../types/proportion';
+	import InputNumberExpression from './InputNumberExpression.svelte';
+	import IconButton from './IconButton.svelte';
+	import SvgBuilder from './SvgBuilder.svelte';
+	import { arrowNarrowRight, refresh } from '../assets/svgObjects';
+	import { roundIfNeeded } from '../util/number';
+	import { createWritableLS } from '../stores/writableLocalStorage';
+	import { createSwapAnimation } from '../actions/swapRotateAnimation';
 
 	const swapAnim = createSwapAnimation({ duration: 500, verticalOriginOffset: -10 });
 	const roundingDigits = 3;
@@ -14,18 +14,18 @@
 	const initialStore: ProportionModel = {
 		a: {
 			computed: 1,
-			expression: '',
+			expression: ''
 		},
 		b: {
 			computed: 1,
-			expression: '',
+			expression: ''
 		},
 		c: {
 			computed: 1,
-			expression: '',
+			expression: ''
 		},
-		cArr: [],
-	}
+		cArr: []
+	};
 
 	const store = createWritableLS('proportionModel', initialStore, 3000);
 
@@ -38,21 +38,34 @@
 		});
 	}
 
-	$: result = roundIfNeeded($store.c.computed*$store.b.computed/$store.a.computed, roundingDigits);
+	$: result = roundIfNeeded(
+		($store.c.computed * $store.b.computed) / $store.a.computed,
+		roundingDigits
+	);
 </script>
 
-
 <section class="prop-main">
-	<h2 class="aria-only">Enter values for A, B, which will determine the ratio. And entering value C will use the ratio to generate the new proportion</h2>
+	<h2 class="aria-only">
+		Enter values for A, B, which will determine the ratio. And entering value C will use the ratio
+		to generate the new proportion
+	</h2>
 	<div class="flex-cc prop-row">
 		<div class="prop-val" use:swapAnim.actionRotateRight>
-			<InputNumberExpression label="value A" expression={$store.a.expression} {roundingDigits}
-				on:compute={(event) => $store.a = event.detail} />
+			<InputNumberExpression
+				label="value A"
+				expression={$store.a.expression}
+				{roundingDigits}
+				on:compute={(event) => ($store.a = event.detail)}
+			/>
 		</div>
-		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to"/>
+		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 		<div class="prop-val" use:swapAnim.actionRotateLeft>
-			<InputNumberExpression label="value B" expression={$store.b.expression} {roundingDigits}
-				on:compute={(event) => $store.b = event.detail} />
+			<InputNumberExpression
+				label="value B"
+				expression={$store.b.expression}
+				{roundingDigits}
+				on:compute={(event) => ($store.b = event.detail)}
+			/>
 		</div>
 	</div>
 	<IconButton on:click={swapValues}>
@@ -60,10 +73,14 @@
 	</IconButton>
 	<div class="flex-cc prop-row">
 		<div class="prop-val">
-			<InputNumberExpression label="as value C" expression={$store.c.expression} {roundingDigits}
-				on:compute={(event) => $store.c = event.detail} />
+			<InputNumberExpression
+				label="as value C"
+				expression={$store.c.expression}
+				{roundingDigits}
+				on:compute={(event) => ($store.c = event.detail)}
+			/>
 		</div>
-		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to"/>
+		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
 		<div class="flex-cc prop-val">
 			<div class="prop-res">{result}</div>
 		</div>
@@ -91,7 +108,7 @@
 		padding: 0.8rem 1rem;
 		width: 100%;
 	}
-	
+
 	.prop-val {
 		flex: 3;
 	}

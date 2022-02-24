@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
-	import { slide } from "svelte/transition";
-	import { roundIfNeeded } from "../util/number";
-	import { evaluateNumberExpression } from "../util/numberExpression";
+	import { createEventDispatcher } from 'svelte';
+	import { slide } from 'svelte/transition';
+	import { roundIfNeeded } from '../util/number';
+	import { evaluateNumberExpression } from '../util/numberExpression';
 	export let label: string;
 	export let expression: string = '';
 	export let roundingDigits: number = 3;
@@ -42,7 +42,7 @@
 			computedValue = roundIfNeeded(result, roundingDigits).toString();
 			isInvalid = false;
 			if (lostFocus) value = computedValue;
-			dispatch('compute', { computed: computedValue, expression: expression});
+			dispatch('compute', { computed: computedValue, expression: expression });
 		} else {
 			isInvalid = true;
 		}
@@ -59,10 +59,7 @@
 
 <label>
 	<span class="aria-only">{label}</span>
-	<input bind:value type="text" placeholder={label}
-		on:focus={onFocus}
-		on:blur={onBlur}
-	>
+	<input bind:value type="text" placeholder={label} on:focus={onFocus} on:blur={onBlur} />
 	{#if lostFocus && isInvalid}
 		<div class="invalid-feedback" transition:slide>Invalid value</div>
 	{/if}
@@ -74,7 +71,7 @@
 		position: relative;
 		min-width: 10rem;
 	}
-	
+
 	input {
 		background-color: var(--primary-color-a1);
 		color: var(--text-color);

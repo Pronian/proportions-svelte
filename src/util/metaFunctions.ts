@@ -4,10 +4,10 @@
  * @param ms - the number of milliseconds to debounce for
  * @returns the debounced function
  */
-export function debounce<A = unknown, R = void>(fn: (args: A) => R, ms = 300)  {
+export function debounce<A = unknown, R = void>(fn: (args: A) => R, ms = 300) {
 	let timeoutId: ReturnType<typeof setTimeout>;
 	return function (args: A) {
 		clearTimeout(timeoutId);
 		timeoutId = setTimeout(() => fn(args), ms);
 	};
-};
+}
