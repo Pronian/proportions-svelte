@@ -3,6 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { roundIfNeeded } from '../util/number';
 	import { evaluateNumberExpression } from '../util/numberExpression';
+	import type { ExpressionValues } from '../types/proportion';
 	export let label: string;
 	export let expression: string = '';
 	export let roundingDigits: number = 3;
@@ -39,10 +40,15 @@
 
 		let result = evaluateNumberExpression(expression);
 		if (result !== undefined) {
-			computedValue = roundIfNeeded(result, roundingDigits).toString();
+			const computedNumberValue = roundIfNeeded(result, roundingDigits);
+			computedValue = computedNumberValue.toString();
 			isInvalid = false;
 			if (lostFocus) value = computedValue;
-			dispatch('compute', { computed: computedValue, expression: expression });
+			const eventDetail: ExpressionValues = {
+				computed: computedNumberValue,
+				expression: expression
+			};
+			dispatch('compute', eventDetail);
 		} else {
 			isInvalid = true;
 		}
