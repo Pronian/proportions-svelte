@@ -38,10 +38,19 @@
 		});
 	}
 
-	$: result = roundIfNeeded(
-		($store.c.computed * $store.b.computed) / $store.a.computed,
-		roundingDigits
-	);
+	function calculateResult(storeValue: ProportionModel, roundingDigits: number): string {
+		const { a, b, c } = storeValue;
+
+		if (a.computed === 0) {
+			return "Can't divide by zero";
+		}
+
+		const result = roundIfNeeded((c.computed * b.computed) / a.computed, roundingDigits);
+
+		return result.toString();
+	}
+
+	$: result = calculateResult($store, roundingDigits);
 </script>
 
 <section class="prop-main">
