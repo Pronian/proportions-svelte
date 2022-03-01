@@ -45,6 +45,10 @@
 			return "Can't divide by zero";
 		}
 
+		if (a.expression === '' || b.expression === '' || c.expression === '') {
+			return 'Fill values for result';
+		}
+
 		const result = roundIfNeeded((c.computed * b.computed) / a.computed, roundingDigits);
 
 		return result.toString();
