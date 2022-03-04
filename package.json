@@ -11,13 +11,13 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.38",
+		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.39",
 		"@tsconfig/svelte": "^3.0.0",
 		"@types/chroma-js": "^2.1.3",
-		"@typescript-eslint/eslint-plugin": "^5.10.1",
-		"@typescript-eslint/parser": "^5.10.1",
+		"@typescript-eslint/eslint-plugin": "^5.13.0",
+		"@typescript-eslint/parser": "^5.13.0",
 		"eslint": "^8.10.0",
-		"eslint-config-prettier": "^8.3.0",
+		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^3.2.1",
 		"prettier": "^2.5.1",
 		"prettier-plugin-svelte": "^2.5.0",
@@ -25,8 +25,8 @@
 		"svelte-check": "^2.4.5",
 		"svelte-preprocess": "^4.10.4",
 		"tslib": "^2.3.1",
-		"typescript": "^4.5.5",
-		"vite": "^2.8.4"
+		"typescript": "^4.6.2",
+		"vite": "^2.8.6"
 	},
 	"dependencies": {
 		"chroma-js": "^2.1.2"
