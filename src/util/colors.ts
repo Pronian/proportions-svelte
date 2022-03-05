@@ -1,5 +1,7 @@
 import chroma from 'chroma-js';
 
+export type ColorTheme = 'dark' | 'light';
+
 export function generateAlphaColors(colorVarNames: string[]) {
 	const computedStyle = window.getComputedStyle(document.documentElement);
 

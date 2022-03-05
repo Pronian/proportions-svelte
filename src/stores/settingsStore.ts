@@ -1,12 +1,13 @@
 import { createWritableLS } from './writableLocalStorage';
+import type { ColorTheme } from '../util/colors';
 
-function getThemePreference(): 'dark' | 'light' {
+function getThemePreference(): ColorTheme {
 	const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 	return isDark ? 'dark' : 'light';
 }
 
 interface SettingsModel {
-	theme: 'dark' | 'light';
+	theme: ColorTheme;
 	roundingDigits: number;
 }
 
