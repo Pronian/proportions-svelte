@@ -4,7 +4,8 @@
 	import { generateAlphaColors } from './util/colors';
 	import { settingsStore } from './stores/settingsStore';
 	import { onMount } from 'svelte';
-	let previousTheme: 'dark' | 'light' | undefined;
+	import type { ColorTheme } from './util/colors';
+	let previousTheme: ColorTheme | undefined;
 
 	onMount(() => {
 		generateAlphaColors(['--bg-color', '--text-color', '--primary-color', '--secondary-color']);
