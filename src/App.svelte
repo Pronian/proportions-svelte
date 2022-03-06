@@ -1,14 +1,14 @@
 <script lang="ts">
 	import Proportions from './components/Proportions.svelte';
 	import Header from './components/Header.svelte';
-	import { generateAlphaColors } from './util/colors';
+	import { generateAppColors } from './util/colors';
 	import { settingsStore } from './stores/settingsStore';
 	import { onMount } from 'svelte';
 	import type { ColorTheme } from './util/colors';
 	let previousTheme: ColorTheme | undefined;
 
 	onMount(() => {
-		generateAlphaColors(['--bg-color', '--text-color', '--primary-color', '--secondary-color']);
+		generateAppColors($settingsStore.theme);
 	});
 
 	$: {
