@@ -16,4 +16,4 @@ const initialSettings: SettingsModel = {
 	roundingDigits: 3
 };
 
-export const settingsStore = createWritableLS('settings', initialSettings);
+export const settingsStore = createWritableLS('settings', initialSettings, 1500);
