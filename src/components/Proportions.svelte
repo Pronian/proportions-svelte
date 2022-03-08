@@ -8,9 +8,9 @@
 	import { createWritableLS } from '../stores/writableLocalStorage';
 	import { createSwapAnimation } from '../actions/swapRotateAnimation';
 
-	const swapAnim = createSwapAnimation({ duration: 500, verticalOriginOffset: -10 });
-	const roundingDigits = 3;
+	export let roundingDigits = 3;
 
+	const swapAnim = createSwapAnimation({ duration: 500, verticalOriginOffset: -10 });
 	const initialStore: ProportionModel = {
 		a: {
 			computed: 1,

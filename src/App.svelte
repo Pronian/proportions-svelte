@@ -9,7 +9,7 @@
 
 <Header />
 <main class="flex-cc">
-	<Proportions />
+	<Proportions roundingDigits={$settingsStore.roundingDigits}/>
 </main>
 
 <style>
