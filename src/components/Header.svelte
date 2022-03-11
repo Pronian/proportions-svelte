@@ -1,7 +1,17 @@
+<script>
+	import IconButton from './IconButton.svelte';
+	import SvgBuilder from './SvgBuilder.svelte';
+	import { cogSolid } from '../assets/svgObjects';
+</script>
+
 <header class="flex-cc">
 	<div />
 	<div class="title"><h1>Svelte Proportions</h1></div>
-	<div />
+	<div>
+		<IconButton class="settings-btn">
+			<SvgBuilder class="cog" svgObj={cogSolid} role="img" />
+		</IconButton>
+	</div>
 </header>
 
 <style>
@@ -24,5 +34,15 @@
 	h1 {
 		margin: 1rem 0.5rem;
 		font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+	}
+
+	header :global(.settings-btn) {
+		margin: 0.5rem 0.5rem 0.5rem auto;
+	}
+
+	header :global(.cog) {
+		fill: currentColor;
+		aspect-ratio: 1 / 1;
+		width: 3rem;
 	}
 </style>
