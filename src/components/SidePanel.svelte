@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { fade } from 'svelte/transition';
+
+	export let position: 'left' | 'right' = 'left';
+	export let maxWidth = 400;
+
+	let innerWidth: number;
+	let positionStyle: string;
+
+	$: positionStyle = `${position}: 0;`;
+	$: width = Math.min(innerWidth, maxWidth);
+</script>
+
+<svelte:window bind:innerWidth />
+
+<div class="backdrop" transition:fade role="presentation" />
+
+<div role="dialog" style="{positionStyle} width:{width}px;">
+	<slot />
+</div>
+
+<style>
+	.backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: var(--bg-color-a5);
+	}
+
+	[role='dialog'] {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		background-color: var(--bg-color);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
