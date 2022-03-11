@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
+	export let show = false;
 	export let position: 'left' | 'right' = 'left';
-	export let maxWidth = 400;
+	export let maxWidth = 500;
 
 	let innerWidth: number;
 	let positionStyle: string;
@@ -13,11 +14,13 @@
 
 <svelte:window bind:innerWidth />
 
+{#if show}
 <div class="backdrop" transition:fade role="presentation" />
 
 <div role="dialog" style="{positionStyle} width:{width}px;">
 	<slot />
 </div>
+{/if}
 
 <style>
 	.backdrop {
