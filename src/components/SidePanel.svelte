@@ -1,12 +1,20 @@
 <script lang="ts">
+	import { clickOutside } from '../actions/clickOutside';
 	import { fade } from 'svelte/transition';
 
 	export let show = false;
+	export let closeOnOutsideClick = true;
 	export let position: 'left' | 'right' = 'left';
 	export let maxWidth = 500;
 
 	let innerWidth: number;
 	let positionStyle: string;
+
+	function handleOutsideClick() {
+		if (closeOnOutsideClick) {
+			show = false;
+		}
+	}
 
 	$: positionStyle = `${position}: 0;`;
 	$: width = Math.min(innerWidth, maxWidth);
@@ -15,11 +23,17 @@
 <svelte:window bind:innerWidth />
 
 {#if show}
-<div class="backdrop" transition:fade role="presentation" />
+	<div
+		class="backdrop"
+		transition:fade
+		role="presentation"
+		use:clickOutside
+		on:clickOutside={handleOutsideClick}
+	/>
 
-<div role="dialog" style="{positionStyle} width:{width}px;">
-	<slot />
-</div>
+	<div role="dialog" style="{positionStyle} width:{width}px;">
+		<slot />
+	</div>
 {/if}
 
 <style>
