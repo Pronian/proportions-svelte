@@ -8,7 +8,6 @@
 	export let maxWidth = 500;
 
 	let innerWidth: number;
-	let positionStyle: string;
 
 	function handleOutsideClick() {
 		if (closeOnOutsideClick) {
@@ -16,7 +15,6 @@
 		}
 	}
 
-	$: positionStyle = `${position}: 0;`;
 	$: width = Math.min(innerWidth, maxWidth);
 </script>
 
@@ -31,7 +29,7 @@
 		on:clickOutside={handleOutsideClick}
 	/>
 
-	<div role="dialog" style="{positionStyle} width:{width}px;">
+	<div role="dialog" style="{position}: 0; width:{width}px;">
 		<slot />
 	</div>
 {/if}
