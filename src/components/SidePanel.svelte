@@ -25,15 +25,14 @@
 <svelte:window bind:innerWidth />
 
 {#if show}
+	<div class="backdrop" transition:fade role="presentation" />
+
 	<div
-		class="backdrop"
-		transition:fade
-		role="presentation"
+		role="dialog"
+		style="{position}: 0; width:{width}px;"
 		use:clickOutside
 		on:clickOutside={handleOutsideClick}
-	/>
-
-	<div role="dialog" style="{position}: 0; width:{width}px;">
+	>
 		<slot />
 	</div>
 {/if}
