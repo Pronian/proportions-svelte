@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { clickOutside } from '../actions/clickOutside';
 	import { fade } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
 
 	export let show = false;
 	export let closeOnOutsideClick = true;
@@ -9,9 +10,12 @@
 
 	let innerWidth: number;
 
+	const dispatch = createEventDispatcher();
+
 	function handleOutsideClick() {
 		if (closeOnOutsideClick) {
 			show = false;
+			dispatch('close');
 		}
 	}
 
