@@ -2,13 +2,14 @@
 	import IconButton from './IconButton.svelte';
 	import SvgBuilder from './SvgBuilder.svelte';
 	import { cogSolid } from '../assets/svgObjects';
+	import { uiState } from '../stores/uiState';
 </script>
 
 <header class="flex-cc">
 	<div />
 	<div class="title"><h1>Svelte Proportions</h1></div>
 	<div>
-		<IconButton class="settings-btn">
+		<IconButton class="settings-btn" on:click={() => uiState.toggleSettings()}>
 			<SvgBuilder class="cog" svgObj={cogSolid} role="img" />
 		</IconButton>
 	</div>
