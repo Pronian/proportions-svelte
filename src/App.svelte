@@ -14,7 +14,11 @@
 	<Proportions roundingDigits={$settingsStore.roundingDigits} />
 </main>
 
-<SidePanel position="right" show={$uiState.areSettingsOpen} on:close={() => uiState.toggleSettings(false)}>
+<SidePanel
+	position="right"
+	show={$uiState.areSettingsOpen}
+	on:close={() => uiState.toggleSettings(false)}
+>
 	Settings
 </SidePanel>
 
