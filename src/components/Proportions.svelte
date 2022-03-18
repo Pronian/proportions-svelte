@@ -115,7 +115,7 @@
 	}
 
 	.prop-res {
-		background-color: var(--primary-color-a1);
+		background-color: var(--primary-color-conceal-96);
 		border-radius: 0.8rem;
 		min-width: 10rem;
 		padding: 0.8rem 1rem;

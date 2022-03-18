@@ -21,7 +21,7 @@
 
 	button:hover,
 	button:focus {
-		background-color: var(--secondary-color-a2);
+		background-color: var(--secondary-color-alpha-20);
 	}
 
 	button:active {

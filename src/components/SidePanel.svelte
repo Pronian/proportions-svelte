@@ -44,14 +44,14 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: var(--bg-color-a5);
+		background-color: var(--bg-color-alpha-50);
 	}
 
 	[role='dialog'] {
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		background-color: var(--bg-color);
+		background-color: var(--bg-color-highlight-30);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

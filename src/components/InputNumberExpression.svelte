@@ -79,7 +79,7 @@
 	}
 
 	input {
-		background-color: var(--primary-color-a1);
+		background-color: var(--primary-color-conceal-96);
 		color: var(--text-color);
 		text-align: center;
 		width: 100%;
@@ -90,12 +90,12 @@
 	}
 
 	input::placeholder {
-		color: var(--text-color-a6);
+		color: var(--text-color-alpha-60);
 	}
 
 	input:focus {
 		outline: none;
-		background-color: var(--secondary-color-a1);
+		background-color: var(--secondary-color-conceal-96);
 		border-color: var(--secondary-color);
 	}
 
