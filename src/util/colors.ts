@@ -6,51 +6,55 @@ const styleSheet = document.styleSheets[0];
 const colorRuleIndex = styleSheet.cssRules.length;
 
 /* Dark Theme:
---eerie-black: #151519ff;
+--eerie-black: #1c1c21ff;
 --carolina-blue: #4ea5d9ff;
 --raw-sienna: #ea8c55ff;
 --forest-green-crayola: #63a375ff;
 --ghost-white: #f4f4f9ff
 
-https://coolors.co/151519-4ea5d9-ea8c55-63a375-f4f4f9
+https://coolors.co/1c1c21-4ea5d9-ea8c55-63a375-f4f4f9
 */
 
 const darkThemeColors = {
-	'bg-color': '#151519',
+	'bg-color': '#1c1c21',
 	'primary-color': '#4ea6da',
 	'secondary-color': '#ea8c55',
-	'text-color': '#e8e8f2',
-}
+	'text-color': '#e8e8f2'
+};
 
 /* Light Theme:
---cultured: #f4f4f6ff;
+--cultured: #f1f1f4ff;
 --carolina-blue: #359ad4ff;
 --raw-sienna: #ea8c55ff;
 --forest-green-crayola: #63a375ff;
 --rich-black-fogra-39: #09090bff;
 
-https://coolors.co/f4f4f6-359ad4-ea8c55-63a375-09090b
+https://coolors.co/f1f1f4-359ad4-ea8c55-63a375-09090b
 */
 
 const lightThemeColors = {
-	'bg-color': '#F4F4F6',
-	'primary-color': '#359AD4',
-	'secondary-color': '#EA8C55',
-	'text-color': '#09090B',
+	'bg-color': '#f1f1f4',
+	'primary-color': '#359ad4',
+	'secondary-color': '#ea8c55',
+	'text-color': '#09090b'
 };
 
 function generateAlphaColorProps(colorName: string, colorValue: string): string[] {
 	const result: string[] = [];
 	const color = chroma(colorValue);
 	for (let i = 1; i < 10; i++) {
-		const alphaColor = color.alpha(i/10).css();
+		const alphaColor = color.alpha(i / 10).css();
 		result.push(`--${colorName}-alpha-${i * 10}: ${alphaColor}`);
 	}
 
 	return result;
 }
 
-function generateDarkLightColorProps(colorName: string, colorValue: string, isDark: boolean): string[] {
+function generateDarkLightColorProps(
+	colorName: string,
+	colorValue: string,
+	isDark: boolean
+): string[] {
 	const result: string[] = [];
 	const color = chroma(colorValue);
 	const highlighColorFn = isDark ? 'brighten' : 'darken';
@@ -65,7 +69,12 @@ function generateDarkLightColorProps(colorName: string, colorValue: string, isDa
 	return result;
 }
 
-function generateMixColorProps(colorName: string, colorPostfix: string, colorStartValue: string, colorEndValue: string): string[] {
+function generateMixColorProps(
+	colorName: string,
+	colorPostfix: string,
+	colorStartValue: string,
+	colorEndValue: string
+): string[] {
 	const result: string[] = [];
 	for (let i = 1; i < 100; i++) {
 		const paddedStep = i.toString().padStart(2, '0');
@@ -88,7 +97,9 @@ export function generateAppColors(themeName: ColorTheme) {
 		if (name === 'bg-color' || name === 'text-color') {
 			properties.push(...generateDarkLightColorProps(name, value, isThemeDark));
 		} else {
-			properties.push(...generateMixColorProps(name, 'highlight', value, themeColors['text-color']));
+			properties.push(
+				...generateMixColorProps(name, 'highlight', value, themeColors['text-color'])
+			);
 			properties.push(...generateMixColorProps(name, 'conceal', value, themeColors['bg-color']));
 		}
 	}

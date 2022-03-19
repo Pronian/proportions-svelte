@@ -79,7 +79,7 @@
 	}
 
 	input {
-		background-color: var(--primary-color-conceal-96);
+		background-color: var(--primary-color-conceal-95);
 		color: var(--text-color);
 		text-align: center;
 		width: 100%;
@@ -95,7 +95,7 @@
 
 	input:focus {
 		outline: none;
-		background-color: var(--secondary-color-conceal-96);
+		background-color: var(--secondary-color-conceal-95);
 		border-color: var(--secondary-color);
 	}
 
