@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { clickOutside } from '../actions/clickOutside';
-	import { fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+	import { fade } from 'svelte/transition';
+	import { sideSlide } from '../transitions/slide';
+	import { clickOutside } from '../actions/clickOutside';
 
 	export let show = false;
 	export let closeOnOutsideClick = true;
@@ -30,6 +31,7 @@
 	<div
 		role="dialog"
 		style="{position}: 0; width:{width}px;"
+		transition:sideSlide={{ side: position }}
 		use:clickOutside
 		on:clickOutside={handleOutsideClick}
 	>
