@@ -52,6 +52,7 @@
 		top: 0;
 		bottom: 0;
 		background-color: var(--bg-color-highlight-30);
+		box-shadow: var(--shadow-color) 0 0 2rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
