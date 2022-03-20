@@ -14,8 +14,14 @@
 	$: selected = group === value;
 </script>
 
-<div class="cont" class:selected tabindex="0" on:click={() => group = value} on:keypress={keySelect}>
-	<input type="radio" bind:group {value} style:display="none">
+<div
+	class="cont"
+	class:selected
+	tabindex="0"
+	on:click={() => (group = value)}
+	on:keypress={keySelect}
+>
+	<input type="radio" bind:group {value} style:display="none" />
 	{#if label}
 		<div class="label">{label}</div>
 	{/if}
@@ -32,7 +38,7 @@
 		flex-direction: column;
 		padding: 0.5rem;
 		gap: 0.5rem;
-        border-radius: 0.8rem;
+		border-radius: 0.8rem;
 	}
 
 	.cont:focus,
@@ -53,7 +59,7 @@
 		border-radius: 0.2rem;
 	}
 
-	:is(.selected:focus,.selected:hover) .colors {
+	:is(.selected:focus, .selected:hover) .colors {
 		border-color: var(--bg-color-highlight-60);
 	}
 
