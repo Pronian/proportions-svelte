@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { sideSlide } from '../transitions/slide';
-	import { clickOutside } from '../actions/clickOutside';
+	import { sideSlide } from '../../transitions/slide';
+	import { clickOutside } from '../../actions/clickOutside';
 
 	export let show = false;
 	export let closeOnOutsideClick = true;

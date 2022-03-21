@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { ProportionModel } from '../types/proportion';
-	import InputNumberExpression from './InputNumberExpression.svelte';
-	import IconButton from './IconButton.svelte';
-	import SvgBuilder from './SvgBuilder.svelte';
-	import { arrowNarrowRight, refresh } from '../assets/svgObjects';
-	import { roundIfNeeded } from '../util/number';
-	import { createWritableLS } from '../stores/writableLocalStorage';
-	import { createSwapAnimation } from '../actions/swapRotateAnimation';
+	import type { ProportionModel } from '../../types/proportion';
+	import InputNumberExpression from '../common/InputNumberExpression.svelte';
+	import IconButton from '../common/IconButton.svelte';
+	import SvgBuilder from '../common/SvgBuilder.svelte';
+	import { arrowNarrowRight, refresh } from '../../assets/svgObjects';
+	import { roundIfNeeded } from '../../util/number';
+	import { createWritableLS } from '../../stores/writableLocalStorage';
+	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
 
 	export let roundingDigits = 3;
 

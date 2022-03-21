@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Proportions from './components/Proportions.svelte';
-	import Header from './components/Header.svelte';
-	import SidePanel from './components/SidePanel.svelte';
+	import Proportions from './components/macroBlocks/Proportions.svelte';
+	import Header from './components/macroBlocks/Header.svelte';
+	import SidePanel from './components/common/SidePanel.svelte';
 	import { generateAppColors } from './util/colors';
 	import { settingsStore } from './stores/settingsStore';
 	import { uiState } from './stores/uiState';

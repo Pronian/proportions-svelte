@@ -1,8 +1,8 @@
 <script>
-	import IconButton from './IconButton.svelte';
-	import SvgBuilder from './SvgBuilder.svelte';
-	import { cogSolid } from '../assets/svgObjects';
-	import { uiState } from '../stores/uiState';
+	import IconButton from '../common/IconButton.svelte';
+	import SvgBuilder from '../common/SvgBuilder.svelte';
+	import { cogSolid } from '../../assets/svgObjects';
+	import { uiState } from '../../stores/uiState';
 </script>
 
 <header class="flex-cc">

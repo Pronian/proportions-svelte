@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
-	import { roundIfNeeded } from '../util/number';
-	import { evaluateNumberExpression } from '../util/numberExpression';
-	import type { ExpressionValues } from '../types/proportion';
+	import { roundIfNeeded } from '../../util/number';
+	import { evaluateNumberExpression } from '../../util/numberExpression';
+	import type { ExpressionValues } from '../../types/proportion';
 	export let label: string;
 	export let expression: string = '';
 	export let roundingDigits: number = 3;
