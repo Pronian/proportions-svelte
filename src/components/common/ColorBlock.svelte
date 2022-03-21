@@ -27,7 +27,7 @@
 	{/if}
 	<div class="flex-cc colors">
 		{#each colors as color}
-			<div style:background-color={color} />
+			<div class="color" style:background-color={color} />
 		{/each}
 	</div>
 </div>
@@ -53,10 +53,15 @@
 	}
 
 	.colors {
+		align-items: stretch;
 		aspect-ratio: 4 / 1;
 		box-sizing: content-box;
 		border: 0.2rem solid var(--bg-color-highlight-40);
 		border-radius: 0.2rem;
+	}
+
+	.color {
+		flex: 1;
 	}
 
 	:is(.selected:focus, .selected:hover) .colors {
