@@ -57,7 +57,6 @@
 		box-shadow: var(--shadow-color) 0 0 2rem;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 	}
 </style>

@@ -15,7 +15,7 @@ const colorRuleIndex = styleSheet.cssRules.length;
 https://coolors.co/1c1c21-4ea5d9-ea8c55-63a375-f4f4f9
 */
 
-const darkThemeColors = {
+export const darkThemeColors = {
 	'bg-color': '#1c1c21',
 	'primary-color': '#4ea6da',
 	'secondary-color': '#ea8c55',
@@ -32,7 +32,7 @@ const darkThemeColors = {
 https://coolors.co/f1f1f4-359ad4-ea8c55-63a375-09090b
 */
 
-const lightThemeColors = {
+export const lightThemeColors = {
 	'bg-color': '#f1f1f4',
 	'primary-color': '#359ad4',
 	'secondary-color': '#ea8c55',

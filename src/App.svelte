@@ -2,6 +2,8 @@
 	import Proportions from './components/macroBlocks/Proportions.svelte';
 	import Header from './components/macroBlocks/Header.svelte';
 	import SidePanel from './components/common/SidePanel.svelte';
+	import FocusPin from './components/common/FocusPin.svelte';
+	import ColorSelector from './components/groups/ColorSelector.svelte';
 	import { generateAppColors } from './util/colors';
 	import { settingsStore } from './stores/settingsStore';
 	import { uiState } from './stores/uiState';
@@ -19,7 +21,9 @@
 	show={$uiState.areSettingsOpen}
 	on:close={() => uiState.toggleSettings(false)}
 >
-	Settings
+	<h2>Settings</h2>
+	<FocusPin />
+	<ColorSelector bind:theme={$settingsStore.theme} />
 </SidePanel>
 
 <style>
