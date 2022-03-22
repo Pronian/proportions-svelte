@@ -3,6 +3,8 @@
 	export let label: string = '';
 	export let value: string;
 	export let group: string | undefined = undefined;
+	let className: string = '';
+	export { className as class };
 
 	function keySelect(event: KeyboardEvent) {
 		if (event.key === 'Enter' || event.key === ' ') {
@@ -15,9 +17,10 @@
 </script>
 
 <div
-	class="cont"
+	class="cont {className}"
 	class:selected
 	tabindex="0"
+	role="button"
 	on:click={() => (group = value)}
 	on:keypress={keySelect}
 >
@@ -36,7 +39,7 @@
 	.cont {
 		display: flex;
 		flex-direction: column;
-		padding: 0.5rem;
+		padding: 1rem;
 		gap: 0.5rem;
 		border-radius: 0.8rem;
 	}
@@ -45,7 +48,7 @@
 	.cont:hover {
 		cursor: pointer;
 		outline: none;
-		background-color: var(--bg-color-highlight-40);
+		background-color: var(--bg-color-highlight-60);
 	}
 
 	.selected .label {
@@ -54,9 +57,9 @@
 
 	.colors {
 		align-items: stretch;
-		aspect-ratio: 4 / 1;
+		aspect-ratio: 5 / 1;
 		box-sizing: content-box;
-		border: 0.2rem solid var(--bg-color-highlight-40);
+		border: 0.2rem solid var(--bg-color-highlight-60);
 		border-radius: 0.2rem;
 	}
 
@@ -65,7 +68,7 @@
 	}
 
 	:is(.selected:focus, .selected:hover) .colors {
-		border-color: var(--bg-color-highlight-60);
+		border-color: var(--bg-color-highlight-80);
 	}
 
 	.cont.selected .colors {
