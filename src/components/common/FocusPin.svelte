@@ -7,7 +7,7 @@
 	});
 </script>
 
-<div bind:this={div} tabindex="-1" aria-hidden="true"/>
+<div bind:this={div} tabindex="-1" aria-hidden="true" />
 
 <style>
 	div {
