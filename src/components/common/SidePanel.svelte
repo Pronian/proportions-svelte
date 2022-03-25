@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import IconButton from './IconButton.svelte';
+	import SvgBuilder from './SvgBuilder.svelte';
+	import { cross } from '../../assets/svgObjects';
 	import { sideSlide } from '../../transitions/slide';
 	import { clickOutside } from '../../actions/clickOutside';
 
@@ -20,6 +23,11 @@
 		}
 	}
 
+	function handleCloseClick() {
+		show = false;
+		dispatch('close');
+	}
+
 	$: width = Math.min(innerWidth, maxWidth);
 </script>
 
@@ -35,6 +43,9 @@
 		use:clickOutside
 		on:clickOutside={handleOutsideClick}
 	>
+		<IconButton class="close" on:click={handleCloseClick}>
+			<SvgBuilder svgObj={cross} role="img" title="Close panel" />
+		</IconButton>
 		<slot />
 	</div>
 {/if}
@@ -58,5 +69,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+	}
+
+	[role='dialog'] :global(.close) {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 3rem;
 	}
 </style>
