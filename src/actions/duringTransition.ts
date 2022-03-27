@@ -1,3 +1,4 @@
+import { createStyleMemo } from '../util/styleMemo';
 import type { SvelteAction } from '../types/action';
 
 type TransitionCallback = (isStart: boolean, isIntro: boolean) => void;
@@ -56,4 +57,46 @@ export const transitionCallback: SvelteAction<TransitionCallback> = function (
 		}
 	};
 };
-}
+
+/**
+ * An action that applies CSS styles while a svelte transition is playing.
+ * @param node - The node to use for tracking the transition.
+ * @param options.element - The element to apply the styles to.
+ * @param options.styles - An object whose keys are kebab case CSS properties and values are CSS values. These styles will be applied during the transition and cleared when the transition ends.
+ */
+export const stylesDuringTransition: SvelteAction<{
+	element: HTMLElement;
+	styles: { [key: string]: string };
+}> = function (node: HTMLElement, { element, styles }) {
+	const { setStyle, restoreStyles } = createStyleMemo();
+	const callbackAction = transitionCallback(node, (isStart) => {
+		if (isStart) {
+			for (const [key, value] of Object.entries(styles)) {
+				setStyle(element, key, value);
+			}
+		} else {
+			restoreStyles(element);
+		}
+	});
+
+	return {
+		update({ element, styles }) {
+			callbackAction.destroy?.();
+			restoreStyles();
+
+			callbackAction.update?.((isStart) => {
+				if (isStart) {
+					for (const [key, value] of Object.entries(styles)) {
+						setStyle(element, key, value);
+					}
+				} else {
+					restoreStyles(element);
+				}
+			});
+		},
+		destroy() {
+			callbackAction.destroy?.();
+			restoreStyles();
+		}
+	};
+};

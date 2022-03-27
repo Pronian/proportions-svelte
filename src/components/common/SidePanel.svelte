@@ -6,6 +6,7 @@
 	import { cross } from '../../assets/svgObjects';
 	import { sideSlide } from '../../transitions/slide';
 	import { clickOutside } from '../../actions/clickOutside';
+	import { stylesDuringTransition } from '../../actions/duringTransition';
 
 	export let show = false;
 	export let closeOnOutsideClick = true;
@@ -40,6 +41,7 @@
 		role="dialog"
 		style="{position}: 0; width:{width}px;"
 		transition:sideSlide={{ side: position }}
+		use:stylesDuringTransition={{ element: document.body, styles: { 'overflow-x': 'hidden' } }}
 		use:clickOutside
 		on:clickOutside={handleOutsideClick}
 	>
