@@ -25,7 +25,7 @@
 	<h2>Settings</h2>
 	<FocusPin />
 	<ColorSelector bind:theme={$settingsStore.theme} />
-	<NumberSelector label="Rounding digits" value={$settingsStore.roundingDigits} min={0} max={10}/>
+	<NumberSelector label="Rounding digits" value={$settingsStore.roundingDigits} min={0} max={10} />
 </SidePanel>
 
 <style>
