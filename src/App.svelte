@@ -4,6 +4,7 @@
 	import SidePanel from './components/common/SidePanel.svelte';
 	import FocusPin from './components/common/FocusPin.svelte';
 	import ColorSelector from './components/groups/ColorSelector.svelte';
+	import NumberSelector from './components/common/NumberSelector.svelte';
 	import { generateAppColors } from './util/colors';
 	import { settingsStore } from './stores/settingsStore';
 	import { uiState } from './stores/uiState';
@@ -24,6 +25,7 @@
 	<h2>Settings</h2>
 	<FocusPin />
 	<ColorSelector bind:theme={$settingsStore.theme} />
+	<NumberSelector label="Rounding digits" value={$settingsStore.roundingDigits} min={0} max={10}/>
 </SidePanel>
 
 <style>
