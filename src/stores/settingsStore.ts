@@ -1,5 +1,5 @@
 import { createWritableLS } from './writableLocalStorage';
-import type { ColorTheme } from '../util/colors';
+import { type ColorTheme, defaultCustomColors } from '../util/colors';
 
 function getThemePreference(): ColorTheme {
 	const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -8,11 +8,13 @@ function getThemePreference(): ColorTheme {
 
 interface SettingsModel {
 	theme: ColorTheme;
+	customThemeColors: typeof defaultCustomColors;
 	roundingDigits: number;
 }
 
 const initialSettings: SettingsModel = {
 	theme: getThemePreference(),
+	customThemeColors: defaultCustomColors,
 	roundingDigits: 3
 };
 

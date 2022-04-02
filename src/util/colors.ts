@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 
-export type ColorTheme = 'dark' | 'light';
+export type ColorTheme = 'dark' | 'light' | 'custom';
 
 const styleSheet = document.styleSheets[0];
 const colorRuleIndex = styleSheet.cssRules.length;
@@ -37,6 +37,15 @@ export const lightThemeColors = {
 	'primary-color': '#359ad4',
 	'secondary-color': '#ea8c55',
 	'text-color': '#09090b'
+};
+
+// https://coolors.co/201e1f-ff5666-edae49-00798c-f4f4f9
+
+export const defaultCustomColors = {
+	'bg-color': '#201e1f',
+	'primary-color': '#ff5666',
+	'secondary-color': '#edae49',
+	'text-color': '#f4f4f9'
 };
 
 function generateAlphaColorProps(colorName: string, colorValue: string): string[] {
@@ -84,8 +93,17 @@ function generateMixColorProps(
 	return result;
 }
 
-export function generateAppColors(themeName: ColorTheme) {
-	const themeColors = themeName === 'dark' ? darkThemeColors : lightThemeColors;
+export function generateAppColors(
+	themeName: ColorTheme,
+	customThemeColors: typeof defaultCustomColors
+) {
+	const allThemeColors = {
+		dark: darkThemeColors,
+		light: lightThemeColors,
+		custom: customThemeColors
+	}
+	const themeColors = allThemeColors[themeName];
+
 	const properties: string[] = [];
 
 	const isThemeDark = chroma(themeColors['bg-color']).luminance() < 0.5;
