@@ -101,7 +101,7 @@ export function generateAppColors(
 		dark: darkThemeColors,
 		light: lightThemeColors,
 		custom: customThemeColors
-	}
+	};
 	const themeColors = allThemeColors[themeName];
 
 	const properties: string[] = [];
