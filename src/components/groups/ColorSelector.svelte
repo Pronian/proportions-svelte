@@ -37,12 +37,14 @@
 	/>
 	{#if theme === 'custom'}
 		<div class="customize-cont">
-			Select custom theme colors:
-			{#each customColors as color}
-				<input type="color" bind:value={color} />
-			{/each}
+			Click on a color to change it:
+			<div class="inputs">
+				{#each customColors as color}
+					<input type="color" bind:value={color} />
+				{/each}
+			</div>
+			<button on:click={() => customThemeChanged(customColors)}>Apply changes</button>
 		</div>
-		<button on:click={() => customThemeChanged(customColors)}>Apply</button>
 	{/if}
 </div>
 
@@ -61,5 +63,41 @@
 
 	.customize-cont {
 		width: 100%;
+	}
+
+	.inputs {
+		display: flex;
+		gap: 1rem;
+		padding: 2rem 0;
+	}
+
+	input[type=color] {
+		display: inline-block;
+		appearance: none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		width: 7rem;
+		height: 5rem;
+		border: 0.5rem solid var(--bg-color-highlight-90);
+		border-radius: 0.25rem;
+		padding: 0;
+	}
+
+	::-webkit-color-swatch-wrapper {
+		padding: 0;
+	}
+
+	::-webkit-color-swatch{
+		border: 0;
+		border-radius: 0;
+	}
+
+	::-moz-color-swatch,
+	::-moz-focus-inner{
+		border: 0;
+	}
+
+	::-moz-focus-inner{
+		padding: 0;
 	}
 </style>
