@@ -19,6 +19,10 @@
 		transition: transform, border-color 0.3s ease-in-out;
 	}
 
+	button:not(:disabled) {
+		cursor: pointer;
+	}
+
 	button:hover,
 	button:focus {
 		background-color: var(--secondary-color-alpha-20);

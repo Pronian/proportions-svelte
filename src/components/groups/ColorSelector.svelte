@@ -71,7 +71,7 @@
 		padding: 2rem 0;
 	}
 
-	input[type=color] {
+	input[type='color'] {
 		display: inline-block;
 		appearance: none;
 		-moz-appearance: none;
@@ -81,23 +81,24 @@
 		border: 0.5rem solid var(--bg-color-highlight-90);
 		border-radius: 0.25rem;
 		padding: 0;
+		cursor: pointer;
 	}
 
 	::-webkit-color-swatch-wrapper {
 		padding: 0;
 	}
 
-	::-webkit-color-swatch{
+	::-webkit-color-swatch {
 		border: 0;
 		border-radius: 0;
 	}
 
 	::-moz-color-swatch,
-	::-moz-focus-inner{
+	::-moz-focus-inner {
 		border: 0;
 	}
 
-	::-moz-focus-inner{
+	::-moz-focus-inner {
 		padding: 0;
 	}
 </style>
