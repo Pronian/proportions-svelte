@@ -3,6 +3,7 @@
 	import Button from '../common/Button.svelte';
 	import { type ColorTheme, lightThemeColors, darkThemeColors } from '../../util/colors';
 	import { createEventDispatcher } from 'svelte';
+	import { slide } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
 
@@ -37,7 +38,7 @@
 		bind:group={theme}
 	/>
 	{#if theme === 'custom'}
-		<div class="customize-cont">
+		<div class="customize-cont" transition:slide>
 			Click on a color to change it:
 			<div class="inputs">
 				{#each customColors as color}
@@ -64,6 +65,7 @@
 
 	.customize-cont {
 		width: 100%;
+		padding: 0 1rem;
 	}
 
 	.inputs {
