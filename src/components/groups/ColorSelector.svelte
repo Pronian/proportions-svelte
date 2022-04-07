@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ColorBlock from '../common/ColorBlock.svelte';
+	import Button from '../common/Button.svelte';
 	import { type ColorTheme, lightThemeColors, darkThemeColors } from '../../util/colors';
 	import { createEventDispatcher } from 'svelte';
 
@@ -43,7 +44,7 @@
 					<input type="color" bind:value={color} />
 				{/each}
 			</div>
-			<button on:click={() => customThemeChanged(customColors)}>Apply changes</button>
+			<Button on:click={() => customThemeChanged(customColors)}>Apply changes</Button>
 		</div>
 	{/if}
 </div>
