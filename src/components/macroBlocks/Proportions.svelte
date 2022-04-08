@@ -3,7 +3,7 @@
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
-	import { arrowNarrowRight, refresh } from '../../assets/svgObjects';
+	import { arrowNarrowRight, refresh, plus } from '../../assets/svgObjects';
 	import { roundIfNeeded } from '../../util/number';
 	import { createWritableLS } from '../../stores/writableLocalStorage';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
@@ -54,6 +54,14 @@
 		return result.toString();
 	}
 
+	function addRow() {
+		$store.cArr.push({
+			computed: $store.c.computed + $store.cArr.length + 1,
+			expression: ''
+		});
+		$store.cArr = $store.cArr;
+	}
+
 	$: result = calculateResult($store, roundingDigits);
 </script>
 
@@ -100,6 +108,12 @@
 	</div>
 </section>
 
+<section class="prop-additional">
+	<IconButton class="btn-add" on:click={addRow}>
+		<SvgBuilder class="svgPlus" svgObj={plus} role="img" title="Add result row" />
+	</IconButton>
+</section>
+
 <style>
 	.prop-main {
 		max-width: 64rem;
@@ -130,5 +144,22 @@
 		color: var(--primary-color);
 		width: 3.5rem;
 		height: 3.5rem;
+	}
+
+	.prop-additional :global(.btn-add) {
+		background-color: var(--secondary-color);
+		border-radius: 50%;
+		margin: 1rem;
+	}
+
+	.prop-additional :global(.btn-add:focus),
+	.prop-additional :global(.btn-add:hover) {
+		background-color: var(--secondary-color-conceal-50);
+	}
+
+	.prop-additional :global(.svgPlus) {
+		width: 4.5rem;
+		height: 4.5rem;
+		color: var(--bg-color);
 	}
 </style>
