@@ -16,7 +16,7 @@
 		border: none;
 		border-radius: 0.8rem;
 		padding: 0.3rem;
-		transition: transform, border-color 0.3s ease-in-out;
+		transition: transform, border-color, background-color, color 0.3s ease-in-out;
 	}
 
 	button:not(:disabled) {
@@ -26,6 +26,7 @@
 	button:hover,
 	button:focus {
 		background-color: var(--secondary-color-alpha-20);
+		outline: 0.2rem solid var(--secondary-color);
 	}
 
 	button:active {
