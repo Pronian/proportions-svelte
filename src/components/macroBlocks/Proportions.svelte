@@ -62,6 +62,7 @@
 		$store.cArr = $store.cArr;
 	}
 
+	$: ratio = $store.b.computed / $store.a.computed;
 	$: result = calculateResult($store, roundingDigits);
 </script>
 
@@ -109,13 +110,32 @@
 </section>
 
 <section class="prop-additional">
+	{#each $store.cArr as arrC}
+		<div class="flex-cc prop-row">
+			<div class="prop-val">
+				<InputNumberExpression
+					label="as value C"
+					expression={arrC.expression || arrC.computed.toString()}
+					{roundingDigits}
+					on:compute={(event) => (arrC = event.detail)}
+				/>
+			</div>
+			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
+			<div class="flex-cc prop-val">
+				<div class="prop-res">{roundIfNeeded(ratio * arrC.computed, roundingDigits)}</div>
+			</div>
+		</div>
+		<IconButton on:click={() => {}}>
+			<SvgBuilder svgObj={refresh} role="img" title="Delete result row" />
+		</IconButton>
+	{/each}
 	<IconButton class="btn-add" on:click={addRow}>
 		<SvgBuilder class="svgPlus" svgObj={plus} role="img" title="Add result row" />
 	</IconButton>
 </section>
 
 <style>
-	.prop-main {
+	section {
 		max-width: 64rem;
 		width: 100%;
 		display: grid;
@@ -146,10 +166,15 @@
 		height: 3.5rem;
 	}
 
+	.prop-additional {
+		margin-top: 2rem;
+	}
+
 	.prop-additional :global(.btn-add) {
+		grid-column: 1 / span 2;
 		background-color: var(--secondary-color);
 		border-radius: 50%;
-		margin: 1rem;
+		margin: 0 auto;
 		color: var(--bg-color);
 	}
 
