@@ -150,16 +150,17 @@
 		background-color: var(--secondary-color);
 		border-radius: 50%;
 		margin: 1rem;
+		color: var(--bg-color);
 	}
 
 	.prop-additional :global(.btn-add:focus),
 	.prop-additional :global(.btn-add:hover) {
 		background-color: var(--secondary-color-conceal-50);
+		color: var(--text-color);
 	}
 
 	.prop-additional :global(.svgPlus) {
 		width: 4.5rem;
 		height: 4.5rem;
-		color: var(--bg-color);
 	}
 </style>
