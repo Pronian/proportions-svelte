@@ -3,7 +3,7 @@
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
-	import { arrowNarrowRight, refresh, plus } from '../../assets/svgObjects';
+	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { roundIfNeeded } from '../../util/number';
 	import { createWritableLS } from '../../stores/writableLocalStorage';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
@@ -126,11 +126,11 @@
 			</div>
 		</div>
 		<IconButton on:click={() => {}}>
-			<SvgBuilder svgObj={refresh} role="img" title="Delete result row" />
+			<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />
 		</IconButton>
 	{/each}
 	<IconButton class="btn-add" on:click={addRow}>
-		<SvgBuilder class="svgPlus" svgObj={plus} role="img" title="Add result row" />
+		<SvgBuilder class="svg-plus" svgObj={plus} role="img" title="Add result row" />
 	</IconButton>
 </section>
 
@@ -184,7 +184,12 @@
 		color: var(--text-color);
 	}
 
-	.prop-additional :global(.svgPlus) {
+	.prop-additional :global(.svg-trash) {
+		width: 2.3rem;
+		height: 2.3rem;
+	}
+
+	.prop-additional :global(.svg-plus) {
 		width: 4.5rem;
 		height: 4.5rem;
 	}
