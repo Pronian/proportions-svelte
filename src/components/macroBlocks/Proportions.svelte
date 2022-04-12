@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ProportionModel } from '../../types/proportion';
+	import type { ExpressionValues, ProportionModel } from '../../types/proportion';
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
@@ -7,6 +7,7 @@
 	import { roundIfNeeded } from '../../util/number';
 	import { createWritableLS } from '../../stores/writableLocalStorage';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
+	import { getUuidV4 } from '../../util/uuid';
 
 	export let roundingDigits = 3;
 
@@ -56,10 +57,19 @@
 
 	function addRow() {
 		$store.cArr.push({
+			id: getUuidV4(),
 			computed: $store.c.computed + $store.cArr.length + 1,
 			expression: ''
 		});
 		$store.cArr = $store.cArr;
+	}
+
+	function updateRow(id: string, newValues: ExpressionValues) {
+		const index = $store.cArr.findIndex((c) => c.id === id);
+
+		if (index > -1) {
+			$store.cArr[index] = { ...newValues, id };
+		}
 	}
 
 	$: ratio = $store.b.computed / $store.a.computed;
@@ -110,14 +120,14 @@
 </section>
 
 <section class="prop-additional">
-	{#each $store.cArr as arrC}
+	{#each $store.cArr as arrC (arrC.id)}
 		<div class="flex-cc prop-row">
 			<div class="prop-val">
 				<InputNumberExpression
 					label="as value C"
 					expression={arrC.expression || arrC.computed.toString()}
 					{roundingDigits}
-					on:compute={(event) => (arrC = event.detail)}
+					on:compute={(event) => updateRow(arrC.id, event.detail)}
 				/>
 			</div>
 			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />

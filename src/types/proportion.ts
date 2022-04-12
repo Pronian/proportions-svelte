@@ -3,9 +3,13 @@ export interface ExpressionValues {
 	computed: number;
 }
 
+export interface ExpressionValuesWithId extends ExpressionValues {
+	id: string;
+}
+
 export interface ProportionModel {
 	a: ExpressionValues;
 	b: ExpressionValues;
 	c: ExpressionValues;
-	cArr: ExpressionValues[];
+	cArr: ExpressionValuesWithId[];
 }
