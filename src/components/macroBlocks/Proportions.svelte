@@ -72,6 +72,10 @@
 		}
 	}
 
+	function deleteRow(id: string) {
+		$store.cArr = $store.cArr.filter((c) => c.id !== id);
+	}
+
 	$: ratio = $store.b.computed / $store.a.computed;
 	$: result = calculateResult($store, roundingDigits);
 </script>
@@ -135,7 +139,7 @@
 				<div class="prop-res">{roundIfNeeded(ratio * arrC.computed, roundingDigits)}</div>
 			</div>
 		</div>
-		<IconButton on:click={() => {}}>
+		<IconButton on:click={() => deleteRow(arrC.id)}>
 			<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />
 		</IconButton>
 	{/each}
