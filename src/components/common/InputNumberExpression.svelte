@@ -3,7 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { roundIfNeeded } from '../../util/number';
 	import { evaluateNumberExpression } from '../../util/numberExpression';
-	import type { ExpressionValues } from '../../types/proportion';
+	import type { ExpressionValues } from '../../stores/proportionModel';
 	export let label: string;
 	export let expression: string = '';
 	export let roundingDigits: number = 3;

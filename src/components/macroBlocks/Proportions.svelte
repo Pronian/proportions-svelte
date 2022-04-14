@@ -1,41 +1,27 @@
 <script lang="ts">
-	import type { ExpressionValues, ProportionModel } from '../../types/proportion';
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { roundIfNeeded } from '../../util/number';
-	import { createWritableLS } from '../../stores/writableLocalStorage';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
 	import { getUuidV4 } from '../../util/uuid';
+	import {
+		proportionStore,
+		type ExpressionValues,
+		type ProportionModel
+	} from '../../stores/proportionModel';
 
 	export let roundingDigits = 3;
 
 	const swapAnim = createSwapAnimation({ duration: 500, verticalOriginOffset: -10 });
-	const initialStore: ProportionModel = {
-		a: {
-			computed: 1,
-			expression: ''
-		},
-		b: {
-			computed: 1,
-			expression: ''
-		},
-		c: {
-			computed: 1,
-			expression: ''
-		},
-		cArr: []
-	};
-
-	const store = createWritableLS('proportionModel', initialStore, 3000);
 
 	function swapValues() {
 		swapAnim.triggerAnimation(() => {
-			$store.c.expression = result.toString();
-			const temp = $store.b;
-			$store.b = $store.a;
-			$store.a = temp;
+			$proportionStore.c.expression = result.toString();
+			const temp = $proportionStore.b;
+			$proportionStore.b = $proportionStore.a;
+			$proportionStore.a = temp;
 		});
 	}
 
@@ -56,28 +42,28 @@
 	}
 
 	function addRow() {
-		$store.cArr.push({
+		$proportionStore.cArr.push({
 			id: getUuidV4(),
-			computed: $store.c.computed + $store.cArr.length + 1,
+			computed: $proportionStore.c.computed + $proportionStore.cArr.length + 1,
 			expression: ''
 		});
-		$store.cArr = $store.cArr;
+		$proportionStore.cArr = $proportionStore.cArr;
 	}
 
 	function updateRow(id: string, newValues: ExpressionValues) {
-		const index = $store.cArr.findIndex((c) => c.id === id);
+		const index = $proportionStore.cArr.findIndex((c) => c.id === id);
 
 		if (index > -1) {
-			$store.cArr[index] = { ...newValues, id };
+			$proportionStore.cArr[index] = { ...newValues, id };
 		}
 	}
 
 	function deleteRow(id: string) {
-		$store.cArr = $store.cArr.filter((c) => c.id !== id);
+		$proportionStore.cArr = $proportionStore.cArr.filter((c) => c.id !== id);
 	}
 
-	$: ratio = $store.b.computed / $store.a.computed;
-	$: result = calculateResult($store, roundingDigits);
+	$: ratio = $proportionStore.b.computed / $proportionStore.a.computed;
+	$: result = calculateResult($proportionStore, roundingDigits);
 </script>
 
 <section class="prop-main">
@@ -89,18 +75,18 @@
 		<div class="prop-val" use:swapAnim.actionRotateRight>
 			<InputNumberExpression
 				label="value A"
-				expression={$store.a.expression}
+				expression={$proportionStore.a.expression}
 				{roundingDigits}
-				on:compute={(event) => ($store.a = event.detail)}
+				on:compute={(event) => ($proportionStore.a = event.detail)}
 			/>
 		</div>
 		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 		<div class="prop-val" use:swapAnim.actionRotateLeft>
 			<InputNumberExpression
 				label="value B"
-				expression={$store.b.expression}
+				expression={$proportionStore.b.expression}
 				{roundingDigits}
-				on:compute={(event) => ($store.b = event.detail)}
+				on:compute={(event) => ($proportionStore.b = event.detail)}
 			/>
 		</div>
 	</div>
@@ -111,9 +97,9 @@
 		<div class="prop-val">
 			<InputNumberExpression
 				label="as value C"
-				expression={$store.c.expression}
+				expression={$proportionStore.c.expression}
 				{roundingDigits}
-				on:compute={(event) => ($store.c = event.detail)}
+				on:compute={(event) => ($proportionStore.c = event.detail)}
 			/>
 		</div>
 		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
@@ -124,7 +110,7 @@
 </section>
 
 <section class="prop-additional">
-	{#each $store.cArr as arrC (arrC.id)}
+	{#each $proportionStore.cArr as arrC (arrC.id)}
 		<div class="flex-cc prop-row">
 			<div class="prop-val">
 				<InputNumberExpression
