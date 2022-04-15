@@ -41,8 +41,7 @@
 		$proportionStore.cArr = $proportionStore.cArr.filter((c) => c.id !== id);
 	}
 
-	$: ratio = $proportionStore.b.computed / $proportionStore.a.computed;
-	$: result = $proportionStore && proportionStore.getResult(roundingDigits)
+	$: result = $proportionStore && proportionStore.getResult(roundingDigits);
 </script>
 
 <section class="prop-main">
