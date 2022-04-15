@@ -3,14 +3,9 @@
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
-	import { roundIfNeeded } from '../../util/number';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
 	import { getUuidV4 } from '../../util/uuid';
-	import {
-		proportionStore,
-		type ExpressionValues,
-		type ProportionModel
-	} from '../../stores/proportionModel';
+	import { proportionStore, type ExpressionValues } from '../../stores/proportionModel';
 
 	export let roundingDigits = 3;
 
@@ -23,22 +18,6 @@
 			$proportionStore.b = $proportionStore.a;
 			$proportionStore.a = temp;
 		});
-	}
-
-	function calculateResult(storeValue: ProportionModel, roundingDigits: number): string {
-		const { a, b, c } = storeValue;
-
-		if (a.computed === 0) {
-			return "Can't divide by zero";
-		}
-
-		if (a.expression === '' || b.expression === '' || c.expression === '') {
-			return 'Fill values for result';
-		}
-
-		const result = roundIfNeeded((c.computed * b.computed) / a.computed, roundingDigits);
-
-		return result.toString();
 	}
 
 	function addRow() {
@@ -63,7 +42,7 @@
 	}
 
 	$: ratio = $proportionStore.b.computed / $proportionStore.a.computed;
-	$: result = calculateResult($proportionStore, roundingDigits);
+	$: result = $proportionStore && proportionStore.getResult(roundingDigits)
 </script>
 
 <section class="prop-main">
@@ -122,7 +101,7 @@
 			</div>
 			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
 			<div class="flex-cc prop-val">
-				<div class="prop-res">{roundIfNeeded(ratio * arrC.computed, roundingDigits)}</div>
+				<div class="prop-res">{proportionStore.getResult(roundingDigits, arrC.id)}</div>
 			</div>
 		</div>
 		<IconButton on:click={() => deleteRow(arrC.id)}>
