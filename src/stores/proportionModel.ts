@@ -68,7 +68,29 @@ function getResult(roundingDigits: number, cArrId?: string) {
 	return result.toString();
 }
 
+/**
+ * Inverts the ratio of the proportion and swaps the result values with the input values.
+ * @param roundingDigits - the number of digits to round to
+ */
+function swap(roundingDigits: number) {
+	const storeValue = store.get();
+
+	// Result values need to be computed first,
+	// otherwise information will be lost when the values are swapped
+	for (const cItem of storeValue.cArr) {
+		cItem.expression = getResult(roundingDigits, cItem.id);
+	}
+
+	storeValue.c.expression = getResult(roundingDigits);
+	const temp = storeValue.b;
+	storeValue.b = storeValue.a;
+	storeValue.a = temp;
+
+	store.set(storeValue);
+}
+
 export const proportionStore = {
 	...store,
-	getResult
+	getResult,
+	swap,
 };

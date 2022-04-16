@@ -13,10 +13,7 @@
 
 	function swapValues() {
 		swapAnim.triggerAnimation(() => {
-			$proportionStore.c.expression = result.toString();
-			const temp = $proportionStore.b;
-			$proportionStore.b = $proportionStore.a;
-			$proportionStore.a = temp;
+			proportionStore.swap(roundingDigits);
 		});
 	}
 
