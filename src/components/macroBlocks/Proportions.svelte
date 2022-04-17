@@ -4,7 +4,6 @@
 	import SvgBuilder from '../common/SvgBuilder.svelte';
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
-	import { getUuidV4 } from '../../util/uuid';
 	import { proportionStore, type ExpressionValues } from '../../stores/proportionModel';
 
 	export let roundingDigits = 3;
@@ -15,15 +14,6 @@
 		swapAnim.triggerAnimation(() => {
 			proportionStore.swap(roundingDigits);
 		});
-	}
-
-	function addRow() {
-		$proportionStore.cArr.push({
-			id: getUuidV4(),
-			computed: $proportionStore.c.computed + $proportionStore.cArr.length + 1,
-			expression: ''
-		});
-		$proportionStore.cArr = $proportionStore.cArr;
 	}
 
 	function updateRow(id: string, newValues: ExpressionValues) {
@@ -104,7 +94,7 @@
 			<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />
 		</IconButton>
 	{/each}
-	<IconButton class="btn-add" on:click={addRow}>
+	<IconButton class="btn-add" on:click={() => proportionStore.addCProp()}>
 		<SvgBuilder class="svg-plus" svgObj={plus} role="img" title="Add result row" />
 	</IconButton>
 </section>

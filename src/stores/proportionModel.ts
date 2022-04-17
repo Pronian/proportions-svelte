@@ -1,3 +1,4 @@
+import { getUuidV4 } from '../util/uuid';
 import { roundIfNeeded } from '../util/number';
 import { createWritableLS } from './writableLocalStorage';
 
@@ -89,8 +90,31 @@ function swap(roundingDigits: number) {
 	store.set(storeValue);
 }
 
+/**
+ * Adds a new C proportion to the cArr array.
+ */
+function addCProp() {
+	const storeValue = store.get();
+
+	let lastValue: number;
+	if (storeValue.cArr.length > 0) {
+		lastValue = storeValue.cArr[storeValue.cArr.length - 1].computed;
+	} else {
+		lastValue = storeValue.c.computed;
+	}
+
+	storeValue.cArr.push({
+		id: getUuidV4(),
+		computed: lastValue + 1,
+		expression: ''
+	});
+
+	store.set(storeValue);
+}
+
 export const proportionStore = {
 	...store,
 	getResult,
 	swap,
+	addCProp
 };
