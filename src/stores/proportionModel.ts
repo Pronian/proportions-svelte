@@ -112,9 +112,38 @@ function addCProp() {
 	store.set(storeValue);
 }
 
+/**
+ * Updates the value of the cArr element with the given ID.
+ * @param id - the id of the cArr element to update
+ * @param newValues - the new values to set
+ */
+function updateCProp(id: string, newValues: ExpressionValues) {
+	const storeValue = store.get();
+
+	const index = storeValue.cArr.findIndex((c) => c.id === id);
+
+	if (index > -1) {
+		storeValue.cArr[index] = { ...newValues, id };
+		store.set(storeValue);
+	}
+}
+
+function deleteCProp(id: string) {
+	const storeValue = store.get();
+
+	const index = storeValue.cArr.findIndex((c) => c.id === id);
+
+	if (index > -1) {
+		storeValue.cArr.splice(index, 1);
+		store.set(storeValue);
+	}
+}
+
 export const proportionStore = {
 	...store,
 	getResult,
 	swap,
-	addCProp
+	addCProp,
+	updateCProp,
+	deleteCProp
 };

@@ -4,7 +4,7 @@
 	import SvgBuilder from '../common/SvgBuilder.svelte';
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
-	import { proportionStore, type ExpressionValues } from '../../stores/proportionModel';
+	import { proportionStore } from '../../stores/proportionModel';
 
 	export let roundingDigits = 3;
 
@@ -14,18 +14,6 @@
 		swapAnim.triggerAnimation(() => {
 			proportionStore.swap(roundingDigits);
 		});
-	}
-
-	function updateRow(id: string, newValues: ExpressionValues) {
-		const index = $proportionStore.cArr.findIndex((c) => c.id === id);
-
-		if (index > -1) {
-			$proportionStore.cArr[index] = { ...newValues, id };
-		}
-	}
-
-	function deleteRow(id: string) {
-		$proportionStore.cArr = $proportionStore.cArr.filter((c) => c.id !== id);
 	}
 
 	$: result = $proportionStore && proportionStore.getResult(roundingDigits);
@@ -82,7 +70,7 @@
 					label="as value C"
 					expression={arrC.expression || arrC.computed.toString()}
 					{roundingDigits}
-					on:compute={(event) => updateRow(arrC.id, event.detail)}
+					on:compute={(event) => proportionStore.updateCProp(arrC.id, event.detail)}
 				/>
 			</div>
 			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
@@ -90,7 +78,7 @@
 				<div class="prop-res">{proportionStore.getResult(roundingDigits, arrC.id)}</div>
 			</div>
 		</div>
-		<IconButton on:click={() => deleteRow(arrC.id)}>
+		<IconButton on:click={() => proportionStore.deleteCProp(arrC.id)}>
 			<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />
 		</IconButton>
 	{/each}
