@@ -55,6 +55,7 @@
 <style>
 	.backdrop {
 		position: absolute;
+		z-index: 2;
 		top: 0;
 		left: 0;
 		right: 0;
@@ -64,6 +65,7 @@
 
 	[role='dialog'] {
 		position: absolute;
+		z-index: 2;
 		top: 0;
 		bottom: 0;
 		background-color: var(--bg-color-highlight-30);
