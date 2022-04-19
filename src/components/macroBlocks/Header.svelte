@@ -17,8 +17,10 @@
 
 <style>
 	header {
+		background-color: var(--bg-color);
 		box-shadow: var(--shadow-color) 0 0.3rem 1rem;
 		position: sticky;
+		z-index: 1;
 		top: 0;
 		margin-bottom: 2rem;
 	}
