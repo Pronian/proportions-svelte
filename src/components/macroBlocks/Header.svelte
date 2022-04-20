@@ -22,7 +22,12 @@
 		position: sticky;
 		z-index: 1;
 		top: 0;
-		margin-bottom: 2rem;
+	}
+
+	@media (min-width: 768px) {
+		header {
+			margin-bottom: 3rem;
+		}
 	}
 
 	div {

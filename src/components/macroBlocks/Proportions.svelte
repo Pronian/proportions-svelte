@@ -89,11 +89,28 @@
 
 <style>
 	section {
-		max-width: 64rem;
+		max-width: 768px;
 		width: 100%;
 		display: grid;
 		grid-template: auto / 1fr 3.5rem;
 		gap: 2rem 1rem;
+		padding: 0 1rem;
+	}
+
+	.prop-main {
+		padding: 4rem 1rem 2rem;
+		background-color: var(--bg-color-highlight-20);
+	}
+
+	@media (min-width: 768px) {
+		section {
+			padding: 0 3rem;
+		}
+
+		.prop-main {
+			padding: 4rem 3rem 2rem;
+			border-radius: 1rem;
+		}
 	}
 
 	.prop-row {
@@ -120,7 +137,7 @@
 	}
 
 	.prop-additional {
-		margin-top: 2rem;
+		margin-top: 4rem;
 	}
 
 	.prop-additional :global(.btn-add) {
