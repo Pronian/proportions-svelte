@@ -61,6 +61,7 @@
 		right: 0;
 		bottom: 0;
 		background-color: var(--bg-color-alpha-50);
+		backdrop-filter: blur(2px);
 	}
 
 	[role='dialog'] {

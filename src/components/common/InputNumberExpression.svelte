@@ -81,9 +81,10 @@
 	input {
 		background-color: var(--primary-color-conceal-95);
 		color: var(--text-color);
+		font-size: 1.6rem;
 		text-align: center;
 		width: 100%;
-		padding: 0.8rem;
+		padding: 0.65rem 0.8rem;
 		margin-bottom: 2rem;
 		border-radius: 0.8rem;
 		border: 2px solid var(--primary-color);
