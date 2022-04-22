@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { slide } from "svelte/transition";
+	import { slide } from 'svelte/transition';
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
@@ -60,7 +60,7 @@
 		<div class="prop-val">
 			<div class="prop-res">{result}</div>
 		</div>
-		<div class="btn-action"/>
+		<div class="btn-action" />
 	</div>
 </section>
 
@@ -79,7 +79,7 @@
 			<div class="prop-val">
 				<div class="prop-res">{proportionStore.getResult(roundingDigits, arrC.id)}</div>
 			</div>
-			<IconButton class="btn-action" on:click={() => proportionStore.deleteCProp(arrC.id)} >
+			<IconButton class="btn-action" on:click={() => proportionStore.deleteCProp(arrC.id)}>
 				<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />
 			</IconButton>
 		</div>
