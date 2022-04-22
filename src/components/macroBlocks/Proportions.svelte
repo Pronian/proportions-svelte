@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { slide } from "svelte/transition";
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
@@ -65,7 +66,7 @@
 
 <section class="prop-additional">
 	{#each $proportionStore.cArr as arrC (arrC.id)}
-		<div class="prop-row">
+		<div class="prop-row" transition:slide>
 			<div class="prop-val">
 				<InputNumberExpression
 					label="as value C"
