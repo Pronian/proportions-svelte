@@ -47,20 +47,16 @@ export function createSwapAnimation(options?: {
 			isAnimating = false;
 		}
 
-		if (
-			leftElement &&
-			leftChildElement &&
-			rightElement &&
-			rightChildElement &&
-			leftElement.parentElement instanceof HTMLElement
-		) {
+		if (leftElement && leftChildElement && rightElement && rightChildElement) {
 			verticalCenter = leftElement.offsetHeight / 2 + verticalOriginOffset;
-			const xCenterParentElement = leftElement.parentElement.offsetWidth / 2;
-			const xCenterAccordingRightElement = rightElement.offsetWidth - xCenterParentElement;
+			const fullHorizontalSpace =
+				rightElement.getBoundingClientRect().right - leftElement.getBoundingClientRect().left;
+			const xCenter = fullHorizontalSpace / 2;
+			const xCenterAccordingRightElement = rightElement.offsetWidth - xCenter;
 
 			hideDocumentOverflow();
 
-			updateTransitionStyles(leftElement, xCenterParentElement, 180);
+			updateTransitionStyles(leftElement, xCenter, 180);
 			updateTransitionStyles(leftChildElement, 0, -180);
 
 			updateTransitionStyles(rightElement, xCenterAccordingRightElement, 180);
