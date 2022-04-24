@@ -35,14 +35,14 @@ const initialStore: ProportionModel = {
 };
 
 const store = createWritableLS('proportionModel', initialStore, 3000);
+let roundingDigits = 3;
 
 /**
  * Gets the result of the proportion calculation, formatted and accounting for errors.
- * @param roundingDigits - the number of digits to round to
  * @param cArrId - if the ID of the cArr element is provided, the result will be calculated from the cArr element
  * @returns the result of the calculation or an error message
  */
-function getResult(roundingDigits: number, cArrId?: string) {
+function getResult(cArrId?: string) {
 	const { a, b, c, cArr } = store.get();
 
 	if (a.computed === 0) {
@@ -71,18 +71,17 @@ function getResult(roundingDigits: number, cArrId?: string) {
 
 /**
  * Inverts the ratio of the proportion and swaps the result values with the input values.
- * @param roundingDigits - the number of digits to round to
  */
-function swap(roundingDigits: number) {
+function swap() {
 	const storeValue = store.get();
 
 	// Result values need to be computed first,
 	// otherwise information will be lost when the values are swapped
 	for (const cItem of storeValue.cArr) {
-		cItem.expression = getResult(roundingDigits, cItem.id);
+		cItem.expression = getResult(cItem.id);
 	}
 
-	storeValue.c.expression = getResult(roundingDigits);
+	storeValue.c.expression = getResult();
 	const temp = storeValue.b;
 	storeValue.b = storeValue.a;
 	storeValue.a = temp;
@@ -139,11 +138,20 @@ function deleteCProp(id: string) {
 	}
 }
 
+/**
+ * Updates the rounding the store uses for calculations.
+ * @param newRoundingDigits - the new number of digits to round to
+ */
+function updateRounding(newRoundingDigits: number) {
+	roundingDigits = newRoundingDigits;
+}
+
 export const proportionStore = {
 	...store,
 	getResult,
 	swap,
 	addCProp,
 	updateCProp,
-	deleteCProp
+	deleteCProp,
+	updateRounding
 };

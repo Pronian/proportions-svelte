@@ -13,11 +13,12 @@
 
 	function swapValues() {
 		swapAnim.triggerAnimation(() => {
-			proportionStore.swap(roundingDigits);
+			proportionStore.swap();
 		});
 	}
 
-	$: result = $proportionStore && proportionStore.getResult(roundingDigits);
+	$: proportionStore.updateRounding(roundingDigits);
+	$: result = ($proportionStore || roundingDigits) && proportionStore.getResult();
 </script>
 
 <section class="prop-main">
@@ -77,7 +78,7 @@
 			</div>
 			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
 			<div class="prop-val">
-				<div class="prop-res">{proportionStore.getResult(roundingDigits, arrC.id)}</div>
+				<div class="prop-res">{proportionStore.getResult(arrC.id) ?? roundingDigits}</div>
 			</div>
 			<IconButton class="btn-action" on:click={() => proportionStore.deleteCProp(arrC.id)}>
 				<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />
