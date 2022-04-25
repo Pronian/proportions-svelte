@@ -18,7 +18,7 @@
 	}
 
 	$: proportionStore.updateRounding(roundingDigits);
-	$: result = ($proportionStore || roundingDigits) && proportionStore.getResult();
+	$: result = $proportionStore && proportionStore.getResult();
 </script>
 
 <section class="prop-main">
@@ -78,7 +78,7 @@
 			</div>
 			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
 			<div class="prop-val">
-				<div class="prop-res">{proportionStore.getResult(arrC.id) ?? roundingDigits}</div>
+				<div class="prop-res">{proportionStore.getResult(arrC.id)}</div>
 			</div>
 			<IconButton class="btn-action" on:click={() => proportionStore.deleteCProp(arrC.id)}>
 				<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />

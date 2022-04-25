@@ -144,6 +144,9 @@ function deleteCProp(id: string) {
  */
 function updateRounding(newRoundingDigits: number) {
 	roundingDigits = newRoundingDigits;
+	// Notify subscribers that the store has updated, so that they can update
+	// their values
+	store.update((storeValue) => storeValue);
 }
 
 export const proportionStore = {
