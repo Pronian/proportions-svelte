@@ -6,6 +6,7 @@
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
 	import { proportionStore } from '../../stores/proportionModel';
+	import ProportionDescription from '../common/ProportionDescription.svelte';
 
 	export let roundingDigits = 3;
 
@@ -21,15 +22,12 @@
 	$: result = $proportionStore && proportionStore.getResult();
 </script>
 
+<ProportionDescription />
 <section class="prop-main">
-	<h2 class="aria-only">
-		Enter values for A, B, which will determine the ratio. And entering value C will use the ratio
-		to generate the new proportion
-	</h2>
 	<div class="prop-row">
 		<div class="prop-val" use:swapAnim.actionRotateRight>
 			<InputNumberExpression
-				label="value A"
+				label="Value A"
 				expression={$proportionStore.a.expression}
 				{roundingDigits}
 				on:compute={(event) => ($proportionStore.a = event.detail)}
@@ -38,7 +36,7 @@
 		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 		<div class="prop-val" use:swapAnim.actionRotateLeft>
 			<InputNumberExpression
-				label="value B"
+				label="Value B"
 				expression={$proportionStore.b.expression}
 				{roundingDigits}
 				on:compute={(event) => ($proportionStore.b = event.detail)}
@@ -51,13 +49,13 @@
 	<div class="prop-row">
 		<div class="prop-val">
 			<InputNumberExpression
-				label="as value C"
+				label="Value C"
 				expression={$proportionStore.c.expression}
 				{roundingDigits}
 				on:compute={(event) => ($proportionStore.c = event.detail)}
 			/>
 		</div>
-		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
+		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 		<div class="prop-val">
 			<div class="prop-res">{result}</div>
 		</div>
@@ -66,27 +64,27 @@
 </section>
 
 <section class="prop-additional">
-	{#each $proportionStore.cArr as arrC (arrC.id)}
+	{#each $proportionStore.cArr as arrC, index (arrC.id)}
 		<div class="prop-row" transition:slide>
 			<div class="prop-val">
 				<InputNumberExpression
-					label="as value C"
+					label="additional C value {index + 1}"
 					expression={arrC.expression || arrC.computed.toString()}
 					{roundingDigits}
 					on:compute={(event) => proportionStore.updateCProp(arrC.id, event.detail)}
 				/>
 			</div>
-			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="to" />
+			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 			<div class="prop-val">
 				<div class="prop-res">{proportionStore.getResult(arrC.id)}</div>
 			</div>
 			<IconButton class="btn-action" on:click={() => proportionStore.deleteCProp(arrC.id)}>
-				<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete result row" />
+				<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete additional row" />
 			</IconButton>
 		</div>
 	{/each}
 	<IconButton class="btn-add" on:click={() => proportionStore.addCProp()}>
-		<SvgBuilder class="svg-plus" svgObj={plus} role="img" title="Add result row" />
+		<SvgBuilder class="svg-plus" svgObj={plus} role="img" title="Add additional result row" />
 	</IconButton>
 </section>
 
