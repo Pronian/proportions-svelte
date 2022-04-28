@@ -40,17 +40,18 @@ let roundingDigits = 3;
 /**
  * Gets the result of the proportion calculation, formatted and accounting for errors.
  * @param cArrId - if the ID of the cArr element is provided, the result will be calculated from the cArr element
+ * @param overwriteError - when a string is provided, it will be used as the error message instead of the default
  * @returns the result of the calculation or an error message
  */
-function getResult(cArrId?: string) {
+function getResult(cArrId?: string, overwriteError?: string) {
 	const { a, b, c, cArr } = store.get();
 
 	if (a.computed === 0) {
-		return "Can't divide by zero";
+		return overwriteError || "Can't divide by zero";
 	}
 
 	if (a.expression === '' || b.expression === '' || c.expression === '') {
-		return 'Fill values for result';
+		return overwriteError || 'Fill values for result';
 	}
 
 	let result: number | undefined = undefined;

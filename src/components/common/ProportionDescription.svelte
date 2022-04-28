@@ -4,7 +4,7 @@
 
 	$: isInitialized =
 		$proportionStore.a.expression && $proportionStore.b.expression && $proportionStore.c.expression;
-	$: result = proportionStore.getResult() ?? $proportionStore;
+	$: result = proportionStore.getResult(undefined, 'N/A') ?? $proportionStore;
 </script>
 
 <svelte:element this={tag} class="cont">
