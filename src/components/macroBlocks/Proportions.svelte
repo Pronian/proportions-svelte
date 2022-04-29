@@ -3,6 +3,7 @@
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
+	import DynamicFontSize from '../common/DynamicFontSize.svelte';
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
 	import { proportionStore } from '../../stores/proportionModel';
@@ -57,7 +58,7 @@
 		</div>
 		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 		<div class="prop-val">
-			<div class="prop-res">{result}</div>
+			<DynamicFontSize class="prop-res" maxFontSizePx="16" text={result}/>
 		</div>
 		<div class="btn-action" />
 	</div>
@@ -120,7 +121,7 @@
 		gap: 1rem;
 	}
 
-	.prop-res {
+	section :global(.prop-res) {
 		background-color: var(--primary-color-conceal-95);
 		border-radius: 0.8rem;
 		min-width: 10rem;
