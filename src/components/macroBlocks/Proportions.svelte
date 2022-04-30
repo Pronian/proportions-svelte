@@ -5,7 +5,6 @@
 	import SvgBuilder from '../common/SvgBuilder.svelte';
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
-	import { dynamicFontSize } from '../../actions/dynamicFontSize';
 	import { proportionStore } from '../../stores/proportionModel';
 	import ProportionDescription from '../common/ProportionDescription.svelte';
 
@@ -58,7 +57,7 @@
 		</div>
 		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 		<div class="prop-val">
-			<div class="prop-res" use:dynamicFontSize={{ maxFontSize: 16 }}>{result}</div>
+			<div class="prop-res">{result}</div>
 		</div>
 		<div class="btn-action" />
 	</div>
