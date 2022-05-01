@@ -32,7 +32,7 @@
 		display: grid;
 		grid-template: 1fr 1fr / auto auto auto;
 		column-gap: 0.5rem;
-		margin: 2rem;
+		margin: 2rem 1rem;
 		font-size: 2rem;
 		line-height: 1.5;
 		font-weight: 400;
