@@ -15,6 +15,7 @@ export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOption
 	function adjustFontSize(maxFontSize: number, minFontSize: number) {
 		let fontSize = maxFontSize;
 		el.style.lineHeight = '1';
+		el.style.wordBreak = 'break-all';
 		const style = getComputedStyle(el);
 		const paddingVertical = parseInt(style.paddingTop) + parseInt(style.paddingBottom);
 		let realTextHeight = el.clientHeight - paddingVertical;
@@ -26,6 +27,7 @@ export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOption
 		}
 
 		el.style.lineHeight = '';
+		el.style.wordBreak = '';
 	}
 
 	adjustFontSize(maxFontSize, minFontSize);
