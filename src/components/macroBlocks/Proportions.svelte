@@ -5,6 +5,7 @@
 	import SvgBuilder from '../common/SvgBuilder.svelte';
 	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
+	import { dynamicFontSize } from '../../actions/dynamicFontSize';
 	import { proportionStore } from '../../stores/proportionModel';
 	import ProportionDescription from '../common/ProportionDescription.svelte';
 
@@ -57,7 +58,9 @@
 		</div>
 		<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 		<div class="prop-val">
-			<div class="prop-res">{result}</div>
+			<div class="prop-res" use:dynamicFontSize={{ maxFontSize: 16, minHeight: 35 }}>
+				{result}
+			</div>
 		</div>
 		<div class="btn-action" />
 	</div>
@@ -76,7 +79,9 @@
 			</div>
 			<SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
 			<div class="prop-val">
-				<div class="prop-res">{proportionStore.getResult(arrC.id)}</div>
+				<div class="prop-res" use:dynamicFontSize={{ maxFontSize: 16, minHeight: 35 }}>
+					{proportionStore.getResult(arrC.id)}
+				</div>
 			</div>
 			<IconButton class="btn-action" on:click={() => proportionStore.deleteCProp(arrC.id)}>
 				<SvgBuilder class="svg-trash" svgObj={trash} role="img" title="Delete additional row" />
