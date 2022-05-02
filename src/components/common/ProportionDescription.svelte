@@ -58,5 +58,6 @@
 	.prim {
 		font-weight: 600;
 		color: var(--primary-color);
+		word-break: break-all;
 	}
 </style>
