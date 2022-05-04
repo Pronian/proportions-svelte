@@ -13,6 +13,11 @@ interface DynamicFontSizeOptions {
  * The padding will scale proportionally to achieve this.
  */
 export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOptions) {
+	const resizeObserver = new ResizeObserver(() => {
+		adjustFontSize(options);
+		console.log('Size changed', el.textContent);
+	});
+
 	function adjustFontSize(options?: DynamicFontSizeOptions) {
 		const { maxFontSize = 100, minFontSize = 5, minHeight = 0 } = options || {};
 		let fontSize = maxFontSize;
@@ -45,11 +50,16 @@ export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOption
 		}
 	}
 
+	resizeObserver.observe(document.body);
 	adjustFontSize(options);
 
 	return {
 		update(newOptions: DynamicFontSizeOptions) {
+			options = newOptions;
 			adjustFontSize(newOptions);
+		},
+		destroy() {
+			resizeObserver.unobserve(document.body);
 		}
 	};
 }
