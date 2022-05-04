@@ -24,6 +24,7 @@ export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOption
 
 		el.style.lineHeight = '1';
 		el.style.wordBreak = 'break-all';
+		el.style.fontSize = `${fontSize}px`;
 		const style = getComputedStyle(el);
 		const paddingRatio =
 			parseFloat(style.paddingTop) /
