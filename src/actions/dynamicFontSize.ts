@@ -59,7 +59,7 @@ export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOption
 		const paddingRatio =
 			parseFloat(style.paddingTop) /
 			(parseFloat(style.paddingTop) + parseFloat(style.paddingBottom));
-		const paddingVertical = parseInt(style.paddingTop) + parseInt(style.paddingBottom);
+		const paddingVertical = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
 		let realTextHeight = el.clientHeight - paddingVertical;
 
 		while (realTextHeight > fontSize && fontSize > minFontSize) {
