@@ -4,6 +4,35 @@ interface DynamicFontSizeOptions {
 	minHeight?: number;
 }
 
+const dynamicFontSizeSubscribers: (() => void)[] = [];
+
+const resizeObserver = new ResizeObserver(() => {
+	for (const subscriber of dynamicFontSizeSubscribers) {
+		subscriber();
+	}
+	console.log('Size changed');
+});
+
+function addDynamicFontSizeSubscriber(subscriber: () => void) {
+	if (dynamicFontSizeSubscribers.length === 0) {
+		resizeObserver.observe(document.body);
+	}
+
+	dynamicFontSizeSubscribers.push(subscriber);
+}
+
+function removeDynamicFontSizeSubscriber(subscriber: () => void) {
+	const index = dynamicFontSizeSubscribers.indexOf(subscriber);
+
+	if (index > -1) {
+		dynamicFontSizeSubscribers.splice(index, 1);
+	}
+
+	if (dynamicFontSizeSubscribers.length === 0) {
+		resizeObserver.unobserve(document.body);
+	}
+}
+
 /**
  * Reduces the font size of the given element until its text fits on one line.
  * @param el - the element to reduce the font size of
@@ -13,10 +42,11 @@ interface DynamicFontSizeOptions {
  * The padding will scale proportionally to achieve this.
  */
 export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOptions) {
-	const resizeObserver = new ResizeObserver(() => {
+	const resizeCallback = () => {
 		adjustFontSize(options);
-		console.log('Size changed', el.textContent);
-	});
+	};
+
+	addDynamicFontSizeSubscriber(resizeCallback);
 
 	function adjustFontSize(options?: DynamicFontSizeOptions) {
 		const { maxFontSize = 100, minFontSize = 5, minHeight = 0 } = options || {};
@@ -51,7 +81,6 @@ export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOption
 		}
 	}
 
-	resizeObserver.observe(document.body);
 	adjustFontSize(options);
 
 	return {
@@ -60,7 +89,7 @@ export function dynamicFontSize(el: HTMLElement, options?: DynamicFontSizeOption
 			adjustFontSize(newOptions);
 		},
 		destroy() {
-			resizeObserver.unobserve(document.body);
+			removeDynamicFontSizeSubscriber(resizeCallback);
 		}
 	};
 }
