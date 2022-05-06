@@ -15,7 +15,6 @@ const resizeObserver = new ResizeObserver((entries) => {
 		for (const subscriber of dynamicFontSizeSubscribers) {
 			subscriber();
 		}
-		console.log('Size changed', entries);
 	}
 });
 
