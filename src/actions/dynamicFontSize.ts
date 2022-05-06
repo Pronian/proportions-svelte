@@ -6,11 +6,17 @@ interface DynamicFontSizeOptions {
 
 const dynamicFontSizeSubscribers: (() => void)[] = [];
 
-const resizeObserver = new ResizeObserver(() => {
-	for (const subscriber of dynamicFontSizeSubscribers) {
-		subscriber();
+let previousBodyWidth = 0;
+const resizeObserver = new ResizeObserver((entries) => {
+	const bodyWidth = entries[0].contentRect.width;
+
+	if (bodyWidth !== previousBodyWidth) {
+		previousBodyWidth = bodyWidth;
+		for (const subscriber of dynamicFontSizeSubscribers) {
+			subscriber();
+		}
+		console.log('Size changed', entries);
 	}
-	console.log('Size changed');
 });
 
 function addDynamicFontSizeSubscriber(subscriber: () => void) {
