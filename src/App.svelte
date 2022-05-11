@@ -5,6 +5,7 @@
 	import FocusPin from './components/common/FocusPin.svelte';
 	import ColorSelector from './components/groups/ColorSelector.svelte';
 	import NumberSelector from './components/common/NumberSelector.svelte';
+	import InfoFooter from './components/groups/InfoFooter.svelte';
 	import { generateAppColors } from './util/colors';
 	import { settingsStore } from './stores/settingsStore';
 	import { uiState } from './stores/uiState';
@@ -44,6 +45,7 @@
 		min={0}
 		max={10}
 	/>
+	<InfoFooter />
 </SidePanel>
 
 <style>
