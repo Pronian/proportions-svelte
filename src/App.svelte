@@ -28,6 +28,7 @@
 </main>
 
 <SidePanel
+	class="settings"
 	position="right"
 	show={$uiState.areSettingsOpen}
 	on:close={() => uiState.toggleSettings(false)}
@@ -45,6 +46,7 @@
 		min={0}
 		max={10}
 	/>
+	<div />
 	<InfoFooter />
 </SidePanel>
 
@@ -55,5 +57,13 @@
 		text-align: center;
 		margin: 0 auto;
 		flex-direction: column;
+	}
+
+	:global(.settings) {
+		min-height: 100vh;
+	}
+
+	:global(.settings > :nth-last-child(2)) {
+		flex-grow: 1;
 	}
 </style>

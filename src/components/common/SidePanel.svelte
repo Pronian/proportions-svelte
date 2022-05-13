@@ -9,6 +9,8 @@
 	import { inertSiblings } from '../../actions/inert';
 	import { stylesDuringTransition } from '../../actions/duringTransition';
 
+	let className = '';
+	export { className as class };
 	export let show = false;
 	export let closeOnOutsideClick = true;
 	export let position: 'left' | 'right' = 'left';
@@ -39,6 +41,7 @@
 	<div class="backdrop" transition:fade role="presentation" />
 
 	<div
+		class={className}
 		role="dialog"
 		style="{position}: 0; width:{width}px;"
 		transition:sideSlide={{ side: position }}
