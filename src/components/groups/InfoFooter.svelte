@@ -4,6 +4,9 @@
 </script>
 
 <div class="info">
+	<div class="info-author">
+		Made with Svelte, TypeScript, and ❤️ by Ivan Georgiev
+	</div>
 	<div class="flex-cc links">
 		<a href="https://www.linkedin.com/in/igeorgiev-dev" aria-label="LinkedIn" target="_blank">
 			<SvgBuilder svgObj={linkedIn} role="presentation" class="icon" />
@@ -15,6 +18,16 @@
 </div>
 
 <style>
+	.info {
+		margin: 1rem;
+	}
+
+	.info-author {
+		font-size: 1.4rem;
+		color: var(--text-color-conceal-90);
+		margin: 1rem 0;
+	}
+
 	.info :global(.icon) {
 		color: var(--text-color);
 		width: 3.5rem;
