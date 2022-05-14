@@ -4,9 +4,7 @@
 </script>
 
 <div class="info">
-	<div class="info-author">
-		Made with Svelte, TypeScript, and ❤️ by Ivan Georgiev
-	</div>
+	<div class="info-author">Made with Svelte, TypeScript, and ❤️ by Ivan Georgiev</div>
 	<div class="flex-cc links">
 		<a href="https://www.linkedin.com/in/igeorgiev-dev" aria-label="LinkedIn" target="_blank">
 			<SvgBuilder svgObj={linkedIn} role="presentation" class="icon" />
