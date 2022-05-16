@@ -1,12 +1,16 @@
 <script>
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
-	import { cogSolid } from '../../assets/svgObjects';
+	import { cogSolid, menu } from '../../assets/svgObjects';
 	import { uiState } from '../../stores/uiState';
 </script>
 
 <header class="flex-cc">
-	<div />
+	<div>
+		<IconButton class="menu-btn" on:click={() => uiState.toggleMenu()}>
+			<SvgBuilder class="menu" svgObj={menu} role="img" />
+		</IconButton>
+	</div>
 	<div class="title"><h1>Svelte Proportions</h1></div>
 	<div>
 		<IconButton class="settings-btn" on:click={() => uiState.toggleSettings()}>
@@ -48,7 +52,12 @@
 		margin: 0.5rem 0.5rem 0.5rem auto;
 	}
 
-	header :global(.cog) {
+	header :global(.menu-btn) {
+		margin: 0.5rem auto 0.5rem 0.5rem;
+	}
+
+	header :global(.cog),
+	header :global(.menu) {
 		fill: currentColor;
 		aspect-ratio: 1 / 1;
 		width: 3rem;
