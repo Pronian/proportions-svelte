@@ -11,6 +11,7 @@
 
 	let className = '';
 	export { className as class };
+	export let positionBehavior : 'hover' | 'in-place' = 'hover';
 	export let show = false;
 	export let closeOnOutsideClick = true;
 	export let position: 'left' | 'right' = 'left';
@@ -33,28 +34,44 @@
 	}
 
 	$: width = Math.min(innerWidth, maxWidth);
+	$: isInPlace = positionBehavior === 'in-place' && innerWidth >= maxWidth * 3;
 </script>
 
 <svelte:window bind:innerWidth />
 
 {#if show}
-	<div class="backdrop" transition:fade role="presentation" />
+	{#if !isInPlace}
+		<div class="backdrop" transition:fade role="presentation" />
 
-	<div
-		class={className}
-		role="dialog"
-		style="{position}: 0; width:{width}px;"
-		transition:sideSlide={{ side: position }}
-		use:inertSiblings={show}
-		use:stylesDuringTransition={{ element: document.body, styles: { 'overflow-x': 'hidden' } }}
-		use:clickOutside
-		on:clickOutside={handleOutsideClick}
-	>
-		<IconButton class="close" on:click={handleCloseClick}>
-			<SvgBuilder svgObj={cross} role="img" title="Close panel" />
-		</IconButton>
-		<slot />
-	</div>
+		<div
+			class="panel {className}"
+			role="dialog"
+			style="{position}: 0; width:{width}px;"
+			transition:sideSlide={{ isEnabled: !isInPlace, side: position }}
+			use:inertSiblings={show}
+			use:stylesDuringTransition={{ element: document.body, styles: { 'overflow-x': 'hidden' } }}
+			use:clickOutside
+			on:clickOutside={handleOutsideClick}
+		>
+			<IconButton class="close" on:click={handleCloseClick}>
+				<SvgBuilder svgObj={cross} role="img" title="Close panel" />
+			</IconButton>
+			<slot />
+		</div>
+	{:else}
+		<div
+			class="panel {className}"
+			role="region"
+			style="width:{width}px;"
+			transition:sideSlide={{  isEnabled: isInPlace, side: position, isAbsolute: false }}
+			use:stylesDuringTransition={{ element: document.body, styles: { 'overflow-x': 'hidden' } }}
+		>
+			<IconButton class="close" on:click={handleCloseClick}>
+				<SvgBuilder svgObj={cross} role="img" title="Close panel" />
+			</IconButton>
+			<slot />
+		</div>
+	{/if}
 {/if}
 
 <style>
@@ -74,15 +91,22 @@
 		z-index: 2;
 		top: 0;
 		bottom: 0;
-		background-color: var(--bg-color-highlight-30);
 		box-shadow: var(--shadow-color) 0 0 2rem;
+	}
+
+	[role='region'] {
+		border-right: 1px solid var(--bg-color-highlight-50);
+	}
+
+	.panel {
+		background-color: var(--bg-color-highlight-30);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 1.5rem;
 	}
 
-	[role='dialog'] :global(.close) {
+	.panel :global(.close) {
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
