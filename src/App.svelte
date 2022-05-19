@@ -24,7 +24,19 @@
 
 <Header />
 <main class="flex-cc">
-	<Proportions roundingDigits={$settingsStore.roundingDigits} />
+	<SidePanel
+		class="side-menu"
+		position="left"
+		show={$uiState.isMenuOpen}
+		positionBehavior="in-place"
+		maxWidth={400}
+		on:close={() => uiState.toggleMenu(false)}
+	>
+		<h2>Saved proportions</h2>
+	</SidePanel>
+	<div class="flex-cc prop-cont">
+		<Proportions roundingDigits={$settingsStore.roundingDigits} />
+	</div>
 </main>
 
 <SidePanel
@@ -54,9 +66,25 @@
 	@import './global.css';
 
 	main {
+		align-items: stretch;
+	}
+
+	.prop-cont {
+		justify-content: flex-start;
 		text-align: center;
 		margin: 0 auto;
 		flex-direction: column;
+	}
+
+	@media (min-width: 768px) {
+		.prop-cont {
+			margin-top: 3rem;
+		}
+	}
+
+	:global(.side-menu) {
+		/* 4.9rem is the height of the header */
+		min-height: calc(100vh - 4.9rem);
 	}
 
 	:global(.settings) {

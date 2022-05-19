@@ -28,12 +28,6 @@
 		top: 0;
 	}
 
-	@media (min-width: 768px) {
-		header {
-			margin-bottom: 3rem;
-		}
-	}
-
 	div {
 		flex: 1;
 	}
