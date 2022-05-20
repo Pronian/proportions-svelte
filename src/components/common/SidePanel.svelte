@@ -35,6 +35,7 @@
 
 	$: width = Math.min(innerWidth, maxWidth);
 	$: isInPlace = positionBehavior === 'in-place' && innerWidth >= maxWidth * 3;
+	$: dispatch('placementStatic', isInPlace);
 </script>
 
 <svelte:window bind:innerWidth />

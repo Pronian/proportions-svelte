@@ -30,6 +30,7 @@
 		show={$uiState.isMenuOpen}
 		positionBehavior="in-place"
 		maxWidth={400}
+		on:placementStatic={(event) => uiState.setMenuStatic(event.detail)}
 		on:close={() => uiState.toggleMenu(false)}
 	>
 		<h2>Saved proportions</h2>
