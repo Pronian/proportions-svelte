@@ -11,7 +11,7 @@ export function sideSlide(
 		isAbsolute?: boolean;
 	}
 ) {
-	const { 
+	const {
 		isEnabled = true,
 		duration = 400,
 		delay = 0,
