@@ -11,10 +11,28 @@
 
 	let className = '';
 	export { className as class };
+	/**
+	 * When set to `hover` the panel will not any up any space and will be show on top
+	 * of all other elements with a backdrop.
+	 * 
+	 * When set to `in-place` the panel will take up space when there is three times of
+	 * the specified `maxWidth` space available. If there is not enough space, the
+	 * panel will behave as if it was set to `hover`.
+	 */
 	export let positionBehavior : 'hover' | 'in-place' = 'hover';
 	export let show = false;
+	/**
+	 * Whether the panel should close when the user clicks outside of it.
+	 */
 	export let closeOnOutsideClick = true;
+	/**
+	 * Specifies on which side of the parent container the panel will be shown.
+	*/
 	export let position: 'left' | 'right' = 'left';
+	/**
+	 * Specifies the maximum width of the panel. Will be smaller if the device width
+	 * is smaller.
+	 */
 	export let maxWidth = 500;
 
 	let innerWidth: number;
