@@ -3,7 +3,7 @@
 	import InputNumberExpression from '../common/InputNumberExpression.svelte';
 	import IconButton from '../common/IconButton.svelte';
 	import SvgBuilder from '../common/SvgBuilder.svelte';
-	import { arrowNarrowRight, refresh, plus, trash } from '../../assets/svgObjects';
+	import { arrowNarrowRight, refresh, plus, star, trash } from '../../assets/svgObjects';
 	import { createSwapAnimation } from '../../actions/swapRotateAnimation';
 	import { dynamicFontSize } from '../../actions/dynamicFontSize';
 	import { proportionStore } from '../../stores/proportionModel';
@@ -62,7 +62,9 @@
 				{result}
 			</div>
 		</div>
-		<div class="btn-action" />
+		<IconButton class="btn-action" on:click={() => {}}>
+			<SvgBuilder svgObj={star} role="img" title="Star proportion" />
+		</IconButton>
 	</div>
 </section>
 
