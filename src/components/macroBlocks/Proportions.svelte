@@ -62,9 +62,13 @@
 				{result}
 			</div>
 		</div>
-		<IconButton class="btn-action" on:click={() => {}}>
-			<SvgBuilder svgObj={star} role="img" title="Star proportion" />
-		</IconButton>
+		{#if $proportionStore.starred}
+			<div class="btn-action" />
+		{:else}
+			<IconButton class="btn-action" on:click={() => {}}>
+				<SvgBuilder svgObj={star} role="img" title="Star proportion" />
+			</IconButton>
+		{/if}
 	</div>
 </section>
 

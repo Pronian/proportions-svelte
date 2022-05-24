@@ -16,6 +16,7 @@ export interface ProportionModel {
 	b: ExpressionValues;
 	c: ExpressionValues;
 	cArr: ExpressionValuesWithId[];
+	starred: boolean;
 }
 
 const initialStore: ProportionModel = {
@@ -31,7 +32,8 @@ const initialStore: ProportionModel = {
 		computed: 1,
 		expression: ''
 	},
-	cArr: []
+	cArr: [],
+	starred: false
 };
 
 const store = createWritableLS('proportionModel', initialStore, 3000);
