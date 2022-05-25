@@ -7,6 +7,7 @@
 	import { sideSlide } from '../../transitions/slide';
 	import { clickOutside } from '../../actions/clickOutside';
 	import { inertSiblings } from '../../actions/inert';
+	import { bodyScrollLock } from '../../actions/bodyScrollLock';
 	import { stylesDuringTransition } from '../../actions/duringTransition';
 
 	let className = '';
@@ -68,6 +69,7 @@
 			style="{position}: 0; width:{width}px;"
 			transition:sideSlide={{ isEnabled: !isInPlace, side: position }}
 			use:inertSiblings={show}
+			use:bodyScrollLock={show}
 			use:stylesDuringTransition={{ element: document.body, styles: { 'overflow-x': 'hidden' } }}
 			use:clickOutside
 			on:clickOutside={handleOutsideClick}
