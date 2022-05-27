@@ -1,11 +1,19 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
 	import IconButton from './IconButton.svelte';
 	import SvgBuilder from './SvgBuilder.svelte';
 	import { cross } from '../../assets/svgObjects';
 	import { clickOutside } from '../../actions/clickOutside';
 	import { inertSiblings } from '../../actions/inert';
 	import { bodyScrollLock } from '../../actions/bodyScrollLock';
+
+	let dialog: HTMLDialogElement;
+
+	onMount(() => {
+		dialog.showModal();
+
+		return () => dialog.close();
+	});
 
 	const dispatch = createEventDispatcher();
 
@@ -19,6 +27,7 @@
 </script>
 
 <dialog
+	bind:this={dialog}
 	use:inertSiblings={true}
 	use:bodyScrollLock={true}
 	use:clickOutside
