@@ -26,6 +26,7 @@
 	}
 </script>
 
+<div class="backdrop"/>
 <dialog
 	bind:this={dialog}
 	use:inertSiblings={true}
@@ -40,16 +41,36 @@
 </dialog>
 
 <style>
+	.backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: var(--bg-color-alpha-50);
+		backdrop-filter: blur(2px);
+	}
+
 	dialog {
 		display: flex;
+		margin-top: 25%;
+		padding: 3rem 2rem;
 		flex-direction: column;
 		border-radius: 0.8rem;
+		border: none;
 		background-color: var(--bg-color-highlight-30);
 		box-shadow: var(--shadow-color) 0 0 2rem;
 	}
 
 	dialog::backdrop {
-		background-color: var(--bg-color-alpha-50);
-		backdrop-filter: blur(2px);
+		/* Easier to handle animations with custom backdrop */
+		opacity: 0;
+	}
+
+	dialog :global(.close) {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 3rem;
 	}
 </style>
