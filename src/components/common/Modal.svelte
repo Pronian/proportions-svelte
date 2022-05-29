@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, createEventDispatcher } from 'svelte';
+	import { fade, scale } from 'svelte/transition';
 	import IconButton from './IconButton.svelte';
 	import SvgBuilder from './SvgBuilder.svelte';
 	import { cross } from '../../assets/svgObjects';
@@ -26,13 +27,14 @@
 	}
 </script>
 
-<div class="backdrop"/>
+<div class="backdrop" transition:fade />
 <dialog
 	bind:this={dialog}
 	use:inertSiblings={true}
 	use:bodyScrollLock={true}
 	use:clickOutside
 	on:clickOutside={handleOutsideClick}
+	transition:scale
 >
 	<IconButton class="close" on:click={() => dispatch('close')}>
 		<SvgBuilder svgObj={cross} role="img" title="Close panel" />
