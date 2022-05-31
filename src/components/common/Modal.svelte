@@ -55,7 +55,6 @@
 
 	dialog {
 		display: flex;
-		margin-top: 10vh;
 		padding: 3rem 2rem;
 		flex-direction: column;
 		align-items: center;
@@ -64,6 +63,7 @@
 		min-width: 32rem;
 		min-height: 20rem;
 		max-height: 80vh;
+		transform: translateY(-2rem);
 		color: var(--text-color);
 		background-color: var(--bg-color-highlight-30);
 		box-shadow: var(--shadow-color) 0 0 2rem;
