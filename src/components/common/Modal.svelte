@@ -66,7 +66,7 @@
 		transform: translateY(-2rem);
 		color: var(--text-color);
 		background-color: var(--bg-color-highlight-30);
-		box-shadow: var(--shadow-color) 0 0 2rem;
+		box-shadow: var(--shadow-color) 0 0.5rem 2rem;
 	}
 
 	dialog::backdrop {
