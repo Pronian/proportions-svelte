@@ -69,6 +69,13 @@
 		box-shadow: var(--shadow-color) 0 0.5rem 2rem;
 	}
 
+	@media (min-width: 768px) {
+		dialog {
+			max-height: 70vh;
+			transform: translateY(-4rem);
+		}
+	}
+
 	dialog::backdrop {
 		/* Easier to handle animations with custom backdrop */
 		opacity: 0;
