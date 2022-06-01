@@ -72,6 +72,7 @@
 	dialog::backdrop {
 		/* Easier to handle animations with custom backdrop */
 		opacity: 0;
+		pointer-events: none;
 	}
 
 	dialog :global(.close) {
