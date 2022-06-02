@@ -37,7 +37,7 @@
 	transition:scale
 >
 	<IconButton class="close" on:click={() => dispatch('close')}>
-		<SvgBuilder svgObj={cross} role="img" title="Close panel" />
+		<SvgBuilder svgObj={cross} role="img" title="Close dialog" />
 	</IconButton>
 	<slot />
 </dialog>
