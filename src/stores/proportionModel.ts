@@ -5,6 +5,7 @@ import { createWritableLS } from './writableLocalStorage';
 export interface ExpressionValues {
 	expression: string;
 	computed: number;
+	unit?: string;
 }
 
 export interface ExpressionValuesWithId extends ExpressionValues {

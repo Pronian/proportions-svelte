@@ -7,24 +7,24 @@
 
 <div class="cont">
 	<div class="a-value">
-		{proportion.a}
+		{proportion.a.computed}
 	</div>
 	<div class="flex-cc rel">is</div>
 	<div class="b-value">
-		{proportion.b}
+		{proportion.b.computed}
 	</div>
 	<div class="a-unit" class:edit={editUnits}>
 		{#if editUnits}
 			<input type="text" />
 		{:else}
-			{proportion.aUnit}
+			{proportion.a.unit}
 		{/if}
 	</div>
 	<div class="b-unit" class:edit={editUnits}>
 		{#if editUnits}
 			<input type="text" />
 		{:else}
-			{proportion.bUnit}
+			{proportion.b.unit}
 		{/if}
 	</div>
 </div>
