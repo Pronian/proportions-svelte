@@ -31,12 +31,13 @@
 
 <style>
 	.cont {
+        --normal-border: 1px solid var(--text-color);
 		display: grid;
 		grid-template-columns: 2fr 1fr 2fr;
 		grid-template-rows: 1fr 1fr;
 		width: 28rem;
 		height: 5rem;
-		border: 2px solid var(--text-color);
+		border: var(--normal-border);
 		border-radius: 0.8rem;
 		text-align: center;
 	}
@@ -49,12 +50,12 @@
 	.rel {
 		grid-column: 2;
 		grid-row: 1 / span 2;
-		border-left: 2px solid var(--text-color);
-		border-right: 2px solid var(--text-color);
+		border-left: var(--normal-border);
+		border-right: var(--normal-border);
 	}
 
 	.a-value,
 	.b-value {
-		border-bottom: 2px solid var(--text-color);
+		border-bottom: var(--normal-border);
 	}
 </style>
