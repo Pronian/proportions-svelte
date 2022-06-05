@@ -1,32 +1,48 @@
 <script lang="ts">
 	import type { ProportionModel } from '../../stores/proportionModel';
+    import SvgBuilder from './SvgBuilder.svelte';
+	import { arrowNarrowRight } from '../../assets/svgObjects';
 
 	export let proportion: ProportionModel;
 	export let editUnits = false;
 </script>
 
 <div class="cont">
-	<div class="a-value">
-		{proportion.a.computed}
-	</div>
-	<div class="flex-cc rel">is</div>
-	<div class="b-value">
-		{proportion.b.computed}
-	</div>
-	<div class="a-unit" class:edit={editUnits}>
-		{#if editUnits}
-			<input type="text" />
-		{:else}
-			{proportion.a.unit}
-		{/if}
-	</div>
-	<div class="b-unit" class:edit={editUnits}>
-		{#if editUnits}
-			<input type="text" />
-		{:else}
-			{proportion.b.unit}
-		{/if}
-	</div>
+    {#if !editUnits && proportion.a.unit && proportion.b.unit}
+        <div class="a-value">
+            {proportion.a.computed}
+        </div>
+        <div class="rel">is</div>
+        <div class="b-value">
+            {proportion.b.computed}
+        </div>
+        <div class="a-unit">
+            {proportion.a.unit}
+        </div>
+        <div class="b-unit">
+            {proportion.b.unit}
+        </div>
+    {:else if !editUnits}
+        <div class="a-value two-row">
+            {proportion.a.computed}
+        </div>
+        <div class="flex-cc rel">
+            <SvgBuilder class="arrow" svgObj={arrowNarrowRight} role="img" title="relates to" />
+        </div>
+        <div class="b-value two-row">
+            {proportion.b.computed}
+        </div>
+    {:else}
+        <div class="a-value">
+            {proportion.a.computed}
+        </div>
+        <div class="flex-cc rel">is</div>
+        <div class="b-value">
+            {proportion.b.computed}
+        </div>
+        <input class="a-unit" bind:value="{proportion.a.unit}">
+        <input class="b-unit" bind:value="{proportion.b.unit}">
+    {/if}
 </div>
 
 <style>
@@ -41,6 +57,12 @@
 		border-radius: 0.8rem;
 		text-align: center;
 	}
+
+    .cont > * {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
 	.a-value {
 		grid-column: 1;
@@ -58,4 +80,13 @@
 	.b-value {
 		border-bottom: var(--normal-border);
 	}
+
+    .two-row {
+        grid-row-end: span 2;
+        border: none;
+    }
+
+    .cont :global(.arrow) {
+        width: 3rem;
+    }
 </style>
