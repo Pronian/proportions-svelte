@@ -9,11 +9,11 @@
 
 <div class="cont">
 	{#if !editUnits && proportion.a.unit && proportion.b.unit}
-		<div class="a-value">
+		<div class="a-value bottom-border">
 			{proportion.a.computed}
 		</div>
 		<div class="rel">is</div>
-		<div class="b-value">
+		<div class="b-value bottom-border">
 			{proportion.b.computed}
 		</div>
 		<div class="a-unit side-borders">
@@ -36,25 +36,25 @@
 		<div class="a-value">
 			{proportion.a.computed}
 		</div>
-		<div class="flex-cc rel side-borders">is</div>
+		<div class="flex-cc rel">is</div>
 		<div class="b-value">
 			{proportion.b.computed}
 		</div>
-		<input class="a-unit" bind:value={proportion.a.unit} />
-		<input class="b-unit" bind:value={proportion.b.unit} />
+		<input class="a-unit bl-corner" bind:value={proportion.a.unit} placeholder="kg"/>
+		<input class="b-unit br-corner" bind:value={proportion.b.unit} placeholder="lb"/>
 	{/if}
 </div>
 
 <style>
 	.cont {
-		--normal-border: 1px solid var(--text-color);
+		--normal-border: 1px solid var(--text-color-alpha-30);
+		--border-radius: 1rem;
 		display: grid;
 		grid-template-columns: 2fr 1fr 2fr;
 		grid-template-rows: 1fr 1fr;
 		width: 28rem;
-		height: 5rem;
-		/* border: var(--normal-border); */
-		border-radius: 1rem;
+		height: 6rem;
+		border-radius: var(--border-radius);
 		box-shadow: inset 0 0 0.5rem var(--text-color);
 		text-align: center;
 	}
@@ -81,8 +81,7 @@
 		grid-row: 1 / span 2;
 	}
 
-	.a-value,
-	.b-value {
+	.bottom-border {
 		border-bottom: var(--normal-border);
 	}
 
@@ -93,5 +92,24 @@
 
 	.cont :global(.arrow) {
 		width: 3rem;
+	}
+
+	input {
+		all: unset;
+		box-sizing: border-box;
+		width: 100%;
+		background-color: var(--primary-color-alpha-40);
+	}
+	
+	input::placeholder {
+		color: var(--text-color-alpha-30)
+	}
+	
+	.bl-corner {
+		border-radius: 0 0 0 var(--border-radius);
+	}
+
+	.br-corner {
+		border-radius: 0 0 var(--border-radius) 0;
 	}
 </style>
