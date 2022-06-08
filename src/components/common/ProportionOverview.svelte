@@ -7,8 +7,8 @@
 	export let editUnits = false;
 </script>
 
-<div class="cont">
-	{#if !editUnits && proportion.a.unit && proportion.b.unit}
+{#if !editUnits && proportion.a.unit && proportion.b.unit}
+	<div class="cont">
 		<div class="a-value bottom-border">
 			{proportion.a.computed}
 		</div>
@@ -16,13 +16,15 @@
 		<div class="b-value bottom-border">
 			{proportion.b.computed}
 		</div>
-		<div class="a-unit side-borders">
+		<div class="a-unit">
 			{proportion.a.unit}
 		</div>
 		<div class="b-unit">
 			{proportion.b.unit}
 		</div>
-	{:else if !editUnits}
+	</div>
+{:else if !editUnits}
+	<div class="cont short">
 		<div class="a-value two-row">
 			{proportion.a.computed}
 		</div>
@@ -32,7 +34,9 @@
 		<div class="b-value two-row">
 			{proportion.b.computed}
 		</div>
-	{:else}
+	</div>
+{:else}
+	<div class="cont">
 		<div class="a-value">
 			{proportion.a.computed}
 		</div>
@@ -42,8 +46,8 @@
 		</div>
 		<input class="a-unit bl-corner" bind:value={proportion.a.unit} placeholder="kg"/>
 		<input class="b-unit br-corner" bind:value={proportion.b.unit} placeholder="lb"/>
-	{/if}
-</div>
+	</div>
+{/if}
 
 <style>
 	.cont {
@@ -53,10 +57,14 @@
 		grid-template-columns: 2fr 1fr 2fr;
 		grid-template-rows: 1fr 1fr;
 		width: 28rem;
-		height: 6rem;
+		height: 8rem;
 		border-radius: var(--border-radius);
 		box-shadow: inset 0 0 0.5rem var(--text-color);
 		text-align: center;
+	}
+
+	.cont.short {
+		height: 5rem;
 	}
 
 	.cont > * {
@@ -64,11 +72,6 @@
 		align-items: center;
 		justify-content: center;
 		padding: 0.5rem;
-	}
-
-	.side-borders {
-		border-left: var(--normal-border);
-		border-right: var(--normal-border);
 	}
 
 	.a-value {
