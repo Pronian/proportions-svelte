@@ -1,7 +1,7 @@
 <script lang="ts">
 	let className = '';
 	export { className as class };
-	export let type: 'primary' | 'secondary' | 'transparent' = 'primary';
+	export let type: 'primary' | 'secondary' | 'subtle' | 'transparent' = 'primary';
 </script>
 
 <button class="flex-cc {type} {className}" {...$$restProps} on:click on:focus on:blur>
@@ -35,7 +35,7 @@
 		transform: scale(0.9);
 	}
 
-	button.primary {
+	.primary {
 		background-color: var(--primary-color-conceal-30);
 	}
 
@@ -44,12 +44,21 @@
 		background-color: var(--primary-color-conceal-60);
 	}
 
-	button.secondary {
+	.secondary {
 		background-color: var(--secondary-color-conceal-30);
 	}
 
 	.secondary:hover,
 	.secondary:focus {
 		background-color: var(--secondary-color-conceal-60);
+	}
+
+	.subtle {
+		background-color: var(--bg-color-highlight-50);
+	}
+
+	.subtle:hover,
+	.subtle:focus {
+		background-color: var(--bg-color-highlight-70);
 	}
 </style>
