@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ProportionModel } from '../../stores/proportionModel';
+	import Button from './Button.svelte';
 	import SvgBuilder from './SvgBuilder.svelte';
 	import { arrowNarrowRight } from '../../assets/svgObjects';
 
@@ -8,7 +9,7 @@
 </script>
 
 {#if !editUnits && proportion.a.unit && proportion.b.unit}
-	<div class="cont">
+	<div class="prop-cont">
 		<div class="a-value bottom-border">
 			{proportion.a.computed}
 		</div>
@@ -24,7 +25,7 @@
 		</div>
 	</div>
 {:else if !editUnits}
-	<div class="cont short">
+	<div class="prop-cont short">
 		<div class="a-value two-row">
 			{proportion.a.computed}
 		</div>
@@ -36,7 +37,7 @@
 		</div>
 	</div>
 {:else}
-	<div class="cont">
+	<div class="prop-cont">
 		<div class="a-value">
 			{proportion.a.computed}
 		</div>
@@ -44,30 +45,39 @@
 		<div class="b-value">
 			{proportion.b.computed}
 		</div>
-		<input class="a-unit bl-corner" bind:value={proportion.a.unit} placeholder="kg"/>
-		<input class="b-unit br-corner" bind:value={proportion.b.unit} placeholder="lb"/>
+		<input class="a-unit bl-corner" bind:value={proportion.a.unit} placeholder="kg" />
+		<input class="b-unit br-corner" bind:value={proportion.b.unit} placeholder="lb" />
+	</div>
+
+	<div class="flex-cc buttons">
+		<Button>Save</Button>
+		<Button type="subtle">Cancel</Button>
 	</div>
 {/if}
 
 <style>
-	.cont {
+	.prop-cont,
+	.buttons {
+		width: 28rem;
+		height: 8rem;
+	}
+
+	.prop-cont {
 		--normal-border: 1px solid var(--text-color-alpha-30);
 		--border-radius: 1rem;
 		display: grid;
 		grid-template-columns: 2fr 1fr 2fr;
 		grid-template-rows: 1fr 1fr;
-		width: 28rem;
-		height: 8rem;
 		border-radius: var(--border-radius);
 		box-shadow: inset 0 0 0.5rem var(--text-color);
 		text-align: center;
 	}
 
-	.cont.short {
+	.prop-cont.short {
 		height: 5rem;
 	}
 
-	.cont > * {
+	.prop-cont > * {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -93,7 +103,7 @@
 		border: none;
 	}
 
-	.cont :global(.arrow) {
+	.prop-cont :global(.arrow) {
 		width: 3rem;
 	}
 
@@ -103,11 +113,11 @@
 		width: 100%;
 		background-color: var(--primary-color-alpha-40);
 	}
-	
+
 	input::placeholder {
-		color: var(--text-color-alpha-30)
+		color: var(--text-color-alpha-30);
 	}
-	
+
 	.bl-corner {
 		border-radius: 0 0 0 var(--border-radius);
 	}
