@@ -3,9 +3,20 @@
 	import Button from './Button.svelte';
 	import SvgBuilder from './SvgBuilder.svelte';
 	import { arrowNarrowRight } from '../../assets/svgObjects';
+	import { createEventDispatcher } from 'svelte';
 
 	export let proportion: ProportionModel;
 	export let editUnits = false;
+
+	const dispatch = createEventDispatcher();
+
+	function onCancel() {
+		dispatch('cancel');
+	}
+
+	function onSave() {
+		dispatch('save', proportion);
+	}
 </script>
 
 {#if !editUnits && proportion.a.unit && proportion.b.unit}
@@ -50,8 +61,8 @@
 	</div>
 
 	<div class="flex-cc buttons">
-		<Button>Save</Button>
-		<Button type="subtle">Cancel</Button>
+		<Button on:click={onSave}>Save</Button>
+		<Button on:click={onCancel} type="subtle">Cancel</Button>
 	</div>
 {/if}
 
