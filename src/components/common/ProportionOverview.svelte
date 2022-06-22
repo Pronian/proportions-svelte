@@ -60,6 +60,7 @@
 	.buttons {
 		width: 28rem;
 		height: 8rem;
+		margin: auto;
 	}
 
 	.prop-cont {
