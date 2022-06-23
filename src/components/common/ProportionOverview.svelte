@@ -1,12 +1,16 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import { slide } from 'svelte/transition';
 	import type { ProportionModel } from '../../stores/proportionModel';
 	import Button from './Button.svelte';
 	import SvgBuilder from './SvgBuilder.svelte';
 	import { arrowNarrowRight } from '../../assets/svgObjects';
-	import { createEventDispatcher } from 'svelte';
+	import { getUuidV4 } from '../../util/uuid'; // for ID generation
 
 	export let proportion: ProportionModel;
 	export let editUnits = false;
+
+	let error = '';
 
 	const dispatch = createEventDispatcher();
 
@@ -15,7 +19,17 @@
 	}
 
 	function onSave() {
+		if (proportion.a.unit && !proportion.b.unit) {
+			error = 'Please enter a unit for the second value.';
+		} else if (!proportion.a.unit && proportion.b.unit) {
+			error = 'Please enter a unit for the first value.';
+		} else {
+			error = '';
+		}
+
+		if (!error) {
 		dispatch('save', proportion);
+		}
 	}
 </script>
 
@@ -60,6 +74,12 @@
 		<input class="b-unit br-corner" bind:value={proportion.b.unit} placeholder="lb" />
 	</div>
 
+	{#if error}
+		<div class="error" transition:slide>
+			{error}
+		</div>
+	{/if}
+
 	<div class="flex-cc buttons">
 		<Button on:click={onSave}>Save</Button>
 		<Button on:click={onCancel} type="subtle">Cancel</Button>
@@ -83,6 +103,12 @@
 		border-radius: var(--border-radius);
 		box-shadow: inset 0 0 0.5rem var(--text-color);
 		text-align: center;
+	}
+
+	.error {
+		margin-top: 1.4rem;
+		font-size: 1.4rem;
+		color: var(--secondary-color);
 	}
 
 	.prop-cont.short {
