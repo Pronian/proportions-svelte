@@ -5,12 +5,16 @@
 	import Button from './Button.svelte';
 	import SvgBuilder from './SvgBuilder.svelte';
 	import { arrowNarrowRight } from '../../assets/svgObjects';
-	import { getUuidV4 } from '../../util/uuid'; // for ID generation
+	import { getUuidV4 } from '../../util/uuid';
 
 	export let proportion: ProportionModel;
 	export let editUnits = false;
 
-	let error = '';
+	let error = {
+		shownFor: '',
+		message: '',
+		id: getUuidV4()
+	};
 
 	const dispatch = createEventDispatcher();
 
@@ -20,11 +24,13 @@
 
 	function onSave() {
 		if (proportion.a.unit && !proportion.b.unit) {
-			error = 'Please enter a unit for the second value.';
+			error.message = 'Please enter a unit for the second value.';
+			error.shownFor = 'b';
 		} else if (!proportion.a.unit && proportion.b.unit) {
-			error = 'Please enter a unit for the first value.';
+			error.message = 'Please enter a unit for the first value.';
+			error.shownFor = 'a';
 		} else {
-			error = '';
+			error.shownFor = '';
 		}
 
 		if (!error) {
@@ -71,13 +77,25 @@
 			<div class="b-value">
 				{proportion.b.computed}
 			</div>
-			<input class="a-unit bl-corner" bind:value={proportion.a.unit} placeholder="kg" />
-			<input class="b-unit br-corner" bind:value={proportion.b.unit} placeholder="lb" />
+			<input
+				class="a-unit bl-corner"
+				bind:value={proportion.a.unit}
+				placeholder="kg"
+				aria-label="Unit for first value"
+				aria-describedby={error.shownFor === 'a' ? error.id : null}
+			/>
+			<input
+				class="b-unit br-corner"
+				bind:value={proportion.b.unit}
+				placeholder="lb"
+				aria-label="Unit for second value"
+				aria-describedby={error.shownFor === 'b' ? error.id : null}
+			/>
 		</div>
 
-		{#if error}
-			<div class="error" transition:slide>
-				{error}
+		{#if error.shownFor}
+			<div class="error" id={error.id} transition:slide>
+				{error.message}
 			</div>
 		{/if}
 
@@ -117,14 +135,15 @@
 		padding: 0.5rem;
 	}
 
-	.buttons {
-		margin-top: 2rem;
-	}
-
 	.error {
 		margin-top: 1.4rem;
 		font-size: 1.4rem;
+		text-align: center;
 		color: var(--secondary-color);
+	}
+
+	.buttons {
+		margin-top: 2rem;
 	}
 
 	.a-value {
