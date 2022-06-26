@@ -37,6 +37,10 @@
 			dispatch('save', proportion);
 		}
 	}
+
+	function clearError() {
+		error.shownFor = '';
+	}
 </script>
 
 <div class="cont">
@@ -80,6 +84,7 @@
 			<input
 				class="a-unit bl-corner"
 				bind:value={proportion.a.unit}
+				on:focus={clearError}
 				placeholder="kg"
 				aria-label="Unit for first value"
 				aria-describedby={error.shownFor === 'a' ? error.id : null}
@@ -87,6 +92,7 @@
 			<input
 				class="b-unit br-corner"
 				bind:value={proportion.b.unit}
+				on:focus={clearError}
 				placeholder="lb"
 				aria-label="Unit for second value"
 				aria-describedby={error.shownFor === 'b' ? error.id : null}
