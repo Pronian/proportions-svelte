@@ -1,4 +1,4 @@
-import { getUuidV4 } from 'src/util/uuid';
+import { getUuidV4 } from '../util/uuid';
 import { createWritableLS } from './writableLocalStorage';
 import type { ProportionModel } from './proportionModel';
 
