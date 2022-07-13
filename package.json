@@ -36,6 +36,6 @@
 	},
 	"license": "MIT",
 	"volta": {
-		"node": "18.3.0"
+		"node": "18.6.0"
 	}
 }
