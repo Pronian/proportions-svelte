@@ -8,7 +8,9 @@
 	import InfoFooter from './components/groups/InfoFooter.svelte';
 	import { generateAppColors } from './util/colors';
 	import { settingsStore } from './stores/settingsStore';
+	import { starredProportions } from './stores/starredProportions';
 	import { uiState } from './stores/uiState';
+	import ProportionOverview from './components/common/ProportionOverview.svelte';
 
 	$: generateAppColors($settingsStore.theme, $settingsStore.customThemeColors);
 
@@ -34,6 +36,14 @@
 		on:close={() => uiState.toggleMenu(false)}
 	>
 		<h2>Saved proportions</h2>
+		{#each $starredProportions as [id, prop] (id)}
+			<div class="starred-container">
+				<ProportionOverview proportion={prop} />
+				<button>Load</button>
+				<button>Edit</button>
+				<button>Delete</button>
+			</div>
+		{/each}
 	</SidePanel>
 	<div class="flex-cc prop-cont">
 		<Proportions roundingDigits={$settingsStore.roundingDigits} />
