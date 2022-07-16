@@ -1,8 +1,11 @@
 <script lang="ts">
 	import SidePanel from '../common/SidePanel.svelte';
 	import ProportionOverview from '../common/ProportionOverview.svelte';
+	import IconButton from '../common/IconButton.svelte';
+	import SvgBuilder from '../common/SvgBuilder.svelte';
 	import { uiState } from '../../stores/uiState';
 	import { starredProportions } from '../../stores/starredProportions';
+	import { upload, trash } from '../../assets/svgObjects';
 </script>
 
 <SidePanel
@@ -18,9 +21,14 @@
 	{#each $starredProportions as [id, prop] (id)}
 		<div class="starred-container">
 			<ProportionOverview proportion={prop} />
-			<button>Load</button>
-			<button>Edit</button>
-			<button>Delete</button>
+			<div class="starred-buttons">
+				<IconButton class="butt-action">
+					<SvgBuilder svgObj={upload} role="img" title="Load saved proportion" />
+				</IconButton>
+				<IconButton class="butt-action">
+					<SvgBuilder svgObj={trash} role="img" title="Delete saved proportion" />
+				</IconButton>
+			</div>
 		</div>
 	{/each}
 </SidePanel>
@@ -29,5 +37,9 @@
 	:global(.side-menu) {
 		/* 4.9rem is the height of the header */
 		min-height: calc(100vh - 4.9rem);
+	}
+
+	.starred-container :global(.butt-action) {
+		width: 3rem;
 	}
 </style>
