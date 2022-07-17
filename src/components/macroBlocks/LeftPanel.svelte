@@ -39,6 +39,20 @@
 		min-height: calc(100vh - 4.9rem);
 	}
 
+	.starred-container {
+		display: flex;
+		margin-bottom: 2rem;
+	}
+
+	.starred-buttons {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		margin: 0 0.5rem 0 1rem;
+	}
+
 	.starred-container :global(.butt-action) {
 		width: 3rem;
 	}
